@@ -1,0 +1,2832 @@
+{
+  "files": {
+    ".babelrc": {
+      "text": "",
+      "fg": "#666620"
+    },
+    ".bash_profile": {
+      "text": "",
+      "fg": "#447028"
+    },
+    ".bashrc": {
+      "text": "",
+      "fg": "#447028"
+    },
+    ".clang-format": {
+      "text": "",
+      "fg": "#526064"
+    },
+    ".clang-tidy": {
+      "text": "",
+      "fg": "#526064"
+    },
+    ".codespellrc": {
+      "text": "󰓆",
+      "fg": "#239140"
+    },
+    ".condarc": {
+      "text": "",
+      "fg": "#2d751c"
+    },
+    ".dockerignore": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    ".ds_store": {
+      "text": "",
+      "fg": "#41535b"
+    },
+    ".editorconfig": {
+      "text": "",
+      "fg": "#333030"
+    },
+    ".env": {
+      "text": "",
+      "fg": "#32310d"
+    },
+    ".eslintignore": {
+      "text": "",
+      "fg": "#4b32c3"
+    },
+    ".eslintrc": {
+      "text": "",
+      "fg": "#4b32c3"
+    },
+    ".git-blame-ignore-revs": {
+      "text": "",
+      "fg": "#b83a1d"
+    },
+    ".gitattributes": {
+      "text": "",
+      "fg": "#b83a1d"
+    },
+    ".gitconfig": {
+      "text": "",
+      "fg": "#b83a1d"
+    },
+    ".gitignore": {
+      "text": "",
+      "fg": "#b83a1d"
+    },
+    ".gitlab-ci.yml": {
+      "text": "",
+      "fg": "#aa321f"
+    },
+    ".gitmodules": {
+      "text": "",
+      "fg": "#b83a1d"
+    },
+    ".gtkrc-2.0": {
+      "text": "",
+      "fg": "#333333"
+    },
+    ".gvimrc": {
+      "text": "",
+      "fg": "#017226"
+    },
+    ".justfile": {
+      "text": "",
+      "fg": "#526064"
+    },
+    ".luacheckrc": {
+      "text": "",
+      "fg": "#007abf"
+    },
+    ".luaurc": {
+      "text": "",
+      "fg": "#007abf"
+    },
+    ".mailmap": {
+      "text": "󰊢",
+      "fg": "#b83a1d"
+    },
+    ".nanorc": {
+      "text": "",
+      "fg": "#440077"
+    },
+    ".npmignore": {
+      "text": "",
+      "fg": "#ae1d38"
+    },
+    ".npmrc": {
+      "text": "",
+      "fg": "#ae1d38"
+    },
+    ".nuxtrc": {
+      "text": "󱄆",
+      "fg": "#00835f"
+    },
+    ".nvmrc": {
+      "text": "",
+      "fg": "#3f6b34"
+    },
+    ".pnpmfile.cjs": {
+      "text": "",
+      "fg": "#7c5601"
+    },
+    ".pre-commit-config.yaml": {
+      "text": "󰛢",
+      "fg": "#7c5a12"
+    },
+    ".prettierignore": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.cjs": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.js": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.json": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.json5": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.mjs": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.toml": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.yaml": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".prettierrc.yml": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    ".pylintrc": {
+      "text": "",
+      "fg": "#526064"
+    },
+    ".settings.json": {
+      "text": "",
+      "fg": "#643995"
+    },
+    ".srcinfo": {
+      "text": "󰣇",
+      "fg": "#0b6f9e"
+    },
+    ".vimrc": {
+      "text": "",
+      "fg": "#017226"
+    },
+    ".xauthority": {
+      "text": "",
+      "fg": "#ac3a12"
+    },
+    ".xinitrc": {
+      "text": "",
+      "fg": "#ac3a12"
+    },
+    ".xresources": {
+      "text": "",
+      "fg": "#ac3a12"
+    },
+    ".xsession": {
+      "text": "",
+      "fg": "#ac3a12"
+    },
+    ".zprofile": {
+      "text": "",
+      "fg": "#447028"
+    },
+    ".zshenv": {
+      "text": "",
+      "fg": "#447028"
+    },
+    ".zshrc": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "_gvimrc": {
+      "text": "",
+      "fg": "#017226"
+    },
+    "_vimrc": {
+      "text": "",
+      "fg": "#017226"
+    },
+    "authors": {
+      "text": "",
+      "fg": "#6b4caa"
+    },
+    "authors.txt": {
+      "text": "",
+      "fg": "#6b4caa"
+    },
+    "brewfile": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "bspwmrc": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "build": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "build.gradle": {
+      "text": "",
+      "fg": "#005f87"
+    },
+    "build.zig.zon": {
+      "text": "",
+      "fg": "#7b4d0e"
+    },
+    "bun.lock": {
+      "text": "",
+      "fg": "#4e4946"
+    },
+    "bun.lockb": {
+      "text": "",
+      "fg": "#4e4946"
+    },
+    "cantorrc": {
+      "text": "",
+      "fg": "#1573b6"
+    },
+    "checkhealth": {
+      "text": "󰓙",
+      "fg": "#3a5a7e"
+    },
+    "cmakelists.txt": {
+      "text": "",
+      "fg": "#2c2d2f"
+    },
+    "code_of_conduct": {
+      "text": "",
+      "fg": "#ab104a"
+    },
+    "code_of_conduct.md": {
+      "text": "",
+      "fg": "#ab104a"
+    },
+    "commit_editmsg": {
+      "text": "",
+      "fg": "#b83a1d"
+    },
+    "commitlint.config.js": {
+      "text": "󰜘",
+      "fg": "#207067"
+    },
+    "commitlint.config.ts": {
+      "text": "󰜘",
+      "fg": "#207067"
+    },
+    "compose.yaml": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "compose.yml": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "config": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "containerfile": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "copying": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "copying.lesser": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "directory.build.props": {
+      "text": "",
+      "fg": "#007abf"
+    },
+    "directory.build.targets": {
+      "text": "",
+      "fg": "#007abf"
+    },
+    "directory.packages.props": {
+      "text": "",
+      "fg": "#007abf"
+    },
+    "docker-compose.yaml": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "docker-compose.yml": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "dockerfile": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "eslint.config.cjs": {
+      "text": "",
+      "fg": "#4b32c3"
+    },
+    "eslint.config.js": {
+      "text": "",
+      "fg": "#4b32c3"
+    },
+    "eslint.config.mjs": {
+      "text": "",
+      "fg": "#4b32c3"
+    },
+    "eslint.config.ts": {
+      "text": "",
+      "fg": "#4b32c3"
+    },
+    "ext_typoscript_setup.txt": {
+      "text": "",
+      "fg": "#aa5a00"
+    },
+    "favicon.ico": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "fp-info-cache": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "fp-lib-table": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "freecad.conf": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "gemfile": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "gnumakefile": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "go.mod": {
+      "text": "",
+      "fg": "#0082a2"
+    },
+    "go.sum": {
+      "text": "",
+      "fg": "#0082a2"
+    },
+    "go.work": {
+      "text": "",
+      "fg": "#0082a2"
+    },
+    "gradle-wrapper.properties": {
+      "text": "",
+      "fg": "#005f87"
+    },
+    "gradle.properties": {
+      "text": "",
+      "fg": "#005f87"
+    },
+    "gradlew": {
+      "text": "",
+      "fg": "#005f87"
+    },
+    "groovy": {
+      "text": "",
+      "fg": "#384e5d"
+    },
+    "gruntfile.babel.js": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "gruntfile.coffee": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "gruntfile.js": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "gruntfile.ts": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "gtkrc": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "gulpfile.babel.js": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "gulpfile.coffee": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "gulpfile.js": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "gulpfile.ts": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "hypridle.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "hyprland.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "hyprlandd.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "hyprlock.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "hyprpaper.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "hyprsunset.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "i18n.config.js": {
+      "text": "󰗊",
+      "fg": "#515987"
+    },
+    "i18n.config.ts": {
+      "text": "󰗊",
+      "fg": "#515987"
+    },
+    "i3blocks.conf": {
+      "text": "",
+      "fg": "#2e2f30"
+    },
+    "i3status.conf": {
+      "text": "",
+      "fg": "#2e2f30"
+    },
+    "index.theme": {
+      "text": "",
+      "fg": "#1e7b4a"
+    },
+    "ionic.config.json": {
+      "text": "",
+      "fg": "#355fa5"
+    },
+    "jenkinsfile": {
+      "text": "",
+      "fg": "#9e2a26"
+    },
+    "justfile": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "kalgebrarc": {
+      "text": "",
+      "fg": "#1573b6"
+    },
+    "kdeglobals": {
+      "text": "",
+      "fg": "#1573b6"
+    },
+    "kdenlive-layoutsrc": {
+      "text": "",
+      "fg": "#425c79"
+    },
+    "kdenliverc": {
+      "text": "",
+      "fg": "#425c79"
+    },
+    "kritadisplayrc": {
+      "text": "",
+      "fg": "#a12ea7"
+    },
+    "kritarc": {
+      "text": "",
+      "fg": "#a12ea7"
+    },
+    "license": {
+      "text": "",
+      "fg": "#686020"
+    },
+    "license.md": {
+      "text": "",
+      "fg": "#686020"
+    },
+    "lxde-rc.xml": {
+      "text": "",
+      "fg": "#606060"
+    },
+    "lxqt.conf": {
+      "text": "",
+      "fg": "#016e9e"
+    },
+    "makefile": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "mix.lock": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "mpv.conf": {
+      "text": "",
+      "fg": "#3b1342"
+    },
+    "next.config.cjs": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "next.config.js": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "next.config.ts": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "node_modules": {
+      "text": "",
+      "fg": "#ae1d38"
+    },
+    "nuxt.config.cjs": {
+      "text": "󱄆",
+      "fg": "#00835f"
+    },
+    "nuxt.config.js": {
+      "text": "󱄆",
+      "fg": "#00835f"
+    },
+    "nuxt.config.mjs": {
+      "text": "󱄆",
+      "fg": "#00835f"
+    },
+    "nuxt.config.ts": {
+      "text": "󱄆",
+      "fg": "#00835f"
+    },
+    "package-lock.json": {
+      "text": "",
+      "fg": "#7a0d21"
+    },
+    "package.json": {
+      "text": "",
+      "fg": "#ae1d38"
+    },
+    "pkgbuild": {
+      "text": "",
+      "fg": "#0b6f9e"
+    },
+    "platformio.ini": {
+      "text": "",
+      "fg": "#a4571d"
+    },
+    "playwright.config.cjs": {
+      "text": "",
+      "fg": "#238226"
+    },
+    "playwright.config.cts": {
+      "text": "",
+      "fg": "#238226"
+    },
+    "playwright.config.js": {
+      "text": "",
+      "fg": "#238226"
+    },
+    "playwright.config.mjs": {
+      "text": "",
+      "fg": "#238226"
+    },
+    "playwright.config.mts": {
+      "text": "",
+      "fg": "#238226"
+    },
+    "playwright.config.ts": {
+      "text": "",
+      "fg": "#238226"
+    },
+    "pnpm-lock.yaml": {
+      "text": "",
+      "fg": "#7c5601"
+    },
+    "pnpm-workspace.yaml": {
+      "text": "",
+      "fg": "#7c5601"
+    },
+    "pom.xml": {
+      "text": "",
+      "fg": "#7a0d21"
+    },
+    "prettier.config.cjs": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    "prettier.config.js": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    "prettier.config.mjs": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    "prettier.config.ts": {
+      "text": "",
+      "fg": "#3264b7"
+    },
+    "prisma.config.mts": {
+      "text": "",
+      "fg": "#444da2"
+    },
+    "prisma.config.ts": {
+      "text": "",
+      "fg": "#444da2"
+    },
+    "procfile": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "prusaslicer.ini": {
+      "text": "",
+      "fg": "#9d4717"
+    },
+    "prusaslicergcodeviewer.ini": {
+      "text": "",
+      "fg": "#9d4717"
+    },
+    "py.typed": {
+      "text": "",
+      "fg": "#805e02"
+    },
+    "qtproject.conf": {
+      "text": "",
+      "fg": "#2b8937"
+    },
+    "rakefile": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "readme": {
+      "text": "󰂺",
+      "fg": "#2f2f2f"
+    },
+    "readme.md": {
+      "text": "󰂺",
+      "fg": "#2f2f2f"
+    },
+    "rmd": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "robots.txt": {
+      "text": "󰚩",
+      "fg": "#465470"
+    },
+    "security": {
+      "text": "󰒃",
+      "fg": "#3f4143"
+    },
+    "security.md": {
+      "text": "󰒃",
+      "fg": "#3f4143"
+    },
+    "settings.gradle": {
+      "text": "",
+      "fg": "#005f87"
+    },
+    "svelte.config.js": {
+      "text": "",
+      "fg": "#bf2e00"
+    },
+    "sxhkdrc": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "sym-lib-table": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "tailwind.config.js": {
+      "text": "󱏿",
+      "fg": "#158197"
+    },
+    "tailwind.config.mjs": {
+      "text": "󱏿",
+      "fg": "#158197"
+    },
+    "tailwind.config.ts": {
+      "text": "󱏿",
+      "fg": "#158197"
+    },
+    "tmux.conf": {
+      "text": "",
+      "fg": "#0f8c13"
+    },
+    "tmux.conf.local": {
+      "text": "",
+      "fg": "#0f8c13"
+    },
+    "tsconfig.json": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "unlicense": {
+      "text": "",
+      "fg": "#686020"
+    },
+    "vagrantfile": {
+      "text": "",
+      "fg": "#104abf"
+    },
+    "vercel.json": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "vite.config.cjs": {
+      "text": "",
+      "fg": "#805400"
+    },
+    "vite.config.cts": {
+      "text": "",
+      "fg": "#805400"
+    },
+    "vite.config.js": {
+      "text": "",
+      "fg": "#805400"
+    },
+    "vite.config.mjs": {
+      "text": "",
+      "fg": "#805400"
+    },
+    "vite.config.mts": {
+      "text": "",
+      "fg": "#805400"
+    },
+    "vite.config.ts": {
+      "text": "",
+      "fg": "#805400"
+    },
+    "vitest.config.cjs": {
+      "text": "",
+      "fg": "#4d6712"
+    },
+    "vitest.config.cts": {
+      "text": "",
+      "fg": "#4d6712"
+    },
+    "vitest.config.js": {
+      "text": "",
+      "fg": "#4d6712"
+    },
+    "vitest.config.mjs": {
+      "text": "",
+      "fg": "#4d6712"
+    },
+    "vitest.config.mts": {
+      "text": "",
+      "fg": "#4d6712"
+    },
+    "vitest.config.ts": {
+      "text": "",
+      "fg": "#4d6712"
+    },
+    "vlcrc": {
+      "text": "󰕼",
+      "fg": "#9f5100"
+    },
+    "webpack": {
+      "text": "󰜫",
+      "fg": "#36677c"
+    },
+    "weston.ini": {
+      "text": "",
+      "fg": "#805e00"
+    },
+    "workspace": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "wrangler.jsonc": {
+      "text": "",
+      "fg": "#a35615"
+    },
+    "wrangler.toml": {
+      "text": "",
+      "fg": "#a35615"
+    },
+    "xdph.conf": {
+      "text": "",
+      "fg": "#008082"
+    },
+    "xmobarrc": {
+      "text": "",
+      "fg": "#a9333e"
+    },
+    "xmobarrc.hs": {
+      "text": "",
+      "fg": "#a9333e"
+    },
+    "xmonad.hs": {
+      "text": "",
+      "fg": "#a9333e"
+    },
+    "xorg.conf": {
+      "text": "",
+      "fg": "#ac3a12"
+    },
+    "xsettingsd.conf": {
+      "text": "",
+      "fg": "#ac3a12"
+    }
+  },
+  "extensions": {
+    "3gp": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "3mf": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "7z": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "a": {
+      "text": "",
+      "fg": "#494a47"
+    },
+    "aac": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "ada": {
+      "text": "",
+      "fg": "#3b69aa"
+    },
+    "adb": {
+      "text": "",
+      "fg": "#3b69aa"
+    },
+    "ads": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "ai": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "aif": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "aiff": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "android": {
+      "text": "",
+      "fg": "#277e3e"
+    },
+    "ape": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "apk": {
+      "text": "",
+      "fg": "#277e3e"
+    },
+    "apl": {
+      "text": "",
+      "fg": "#1b7936"
+    },
+    "app": {
+      "text": "",
+      "fg": "#9f0500"
+    },
+    "applescript": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "asc": {
+      "text": "󰦝",
+      "fg": "#41525f"
+    },
+    "asm": {
+      "text": "",
+      "fg": "#006d8e"
+    },
+    "ass": {
+      "text": "󰨖",
+      "fg": "#805c0a"
+    },
+    "astro": {
+      "text": "",
+      "fg": "#aa2f4d"
+    },
+    "avif": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "awk": {
+      "text": "",
+      "fg": "#3a4446"
+    },
+    "azcli": {
+      "text": "",
+      "fg": "#005a9f"
+    },
+    "bak": {
+      "text": "󰁯",
+      "fg": "#526064"
+    },
+    "bash": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "bat": {
+      "text": "",
+      "fg": "#40500f"
+    },
+    "bazel": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "bib": {
+      "text": "󱉟",
+      "fg": "#666620"
+    },
+    "bicep": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "bicepparam": {
+      "text": "",
+      "fg": "#6a4d77"
+    },
+    "bin": {
+      "text": "",
+      "fg": "#9f0500"
+    },
+    "blade.php": {
+      "text": "",
+      "fg": "#a0372b"
+    },
+    "blend": {
+      "text": "󰂫",
+      "fg": "#9c4f00"
+    },
+    "blp": {
+      "text": "󰺾",
+      "fg": "#3a6497"
+    },
+    "bmp": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "bqn": {
+      "text": "",
+      "fg": "#1b7936"
+    },
+    "brep": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "bz": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "bz2": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "bz3": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "bzl": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "c": {
+      "text": "",
+      "fg": "#3b69aa"
+    },
+    "c++": {
+      "text": "",
+      "fg": "#a23253"
+    },
+    "cache": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "cast": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "cbl": {
+      "text": "",
+      "fg": "#005ca5"
+    },
+    "cc": {
+      "text": "",
+      "fg": "#a23253"
+    },
+    "ccm": {
+      "text": "",
+      "fg": "#a23253"
+    },
+    "cfc": {
+      "text": "",
+      "fg": "#017b8c"
+    },
+    "cfg": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "cfm": {
+      "text": "",
+      "fg": "#017b8c"
+    },
+    "cjs": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "clj": {
+      "text": "",
+      "fg": "#466024"
+    },
+    "cljc": {
+      "text": "",
+      "fg": "#466024"
+    },
+    "cljd": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cljs": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cmake": {
+      "text": "",
+      "fg": "#2c2d2f"
+    },
+    "cob": {
+      "text": "",
+      "fg": "#005ca5"
+    },
+    "cobol": {
+      "text": "",
+      "fg": "#005ca5"
+    },
+    "coffee": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "conda": {
+      "text": "",
+      "fg": "#2d751c"
+    },
+    "conf": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "config.ru": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "cow": {
+      "text": "󰆚",
+      "fg": "#70421b"
+    },
+    "cp": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cpp": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cppm": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cpy": {
+      "text": "",
+      "fg": "#005ca5"
+    },
+    "cr": {
+      "text": "",
+      "fg": "#434343"
+    },
+    "crdownload": {
+      "text": "",
+      "fg": "#226654"
+    },
+    "cs": {
+      "text": "󰌛",
+      "fg": "#434d04"
+    },
+    "csh": {
+      "text": "",
+      "fg": "#3a4446"
+    },
+    "cshtml": {
+      "text": "󱦗",
+      "fg": "#512bd4"
+    },
+    "cson": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "csproj": {
+      "text": "󰪮",
+      "fg": "#512bd4"
+    },
+    "css": {
+      "text": "",
+      "fg": "#663399"
+    },
+    "csv": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "cts": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cu": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "cue": {
+      "text": "󰲹",
+      "fg": "#764a57"
+    },
+    "cuh": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "cxx": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "cxxm": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "d": {
+      "text": "",
+      "fg": "#842b25"
+    },
+    "d.ts": {
+      "text": "",
+      "fg": "#6a4c2a"
+    },
+    "dart": {
+      "text": "",
+      "fg": "#03589c"
+    },
+    "db": {
+      "text": "",
+      "fg": "#494848"
+    },
+    "dconf": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "desktop": {
+      "text": "",
+      "fg": "#563d7c"
+    },
+    "diff": {
+      "text": "",
+      "fg": "#41535b"
+    },
+    "dll": {
+      "text": "",
+      "fg": "#4d2c0b"
+    },
+    "doc": {
+      "text": "󰈬",
+      "fg": "#185abd"
+    },
+    "dockerfile": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "dockerignore": {
+      "text": "󰡨",
+      "fg": "#2e5f99"
+    },
+    "docx": {
+      "text": "󰈬",
+      "fg": "#185abd"
+    },
+    "dot": {
+      "text": "󱁉",
+      "fg": "#244a6a"
+    },
+    "download": {
+      "text": "",
+      "fg": "#226654"
+    },
+    "drl": {
+      "text": "",
+      "fg": "#553a3a"
+    },
+    "dropbox": {
+      "text": "",
+      "fg": "#0049be"
+    },
+    "dump": {
+      "text": "",
+      "fg": "#494848"
+    },
+    "dwg": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "dxf": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "ebook": {
+      "text": "",
+      "fg": "#755836"
+    },
+    "ebuild": {
+      "text": "",
+      "fg": "#4c416e"
+    },
+    "edn": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "eex": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "ejs": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "el": {
+      "text": "",
+      "fg": "#61568e"
+    },
+    "elc": {
+      "text": "",
+      "fg": "#61568e"
+    },
+    "elf": {
+      "text": "",
+      "fg": "#9f0500"
+    },
+    "elm": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "eln": {
+      "text": "",
+      "fg": "#61568e"
+    },
+    "env": {
+      "text": "",
+      "fg": "#32310d"
+    },
+    "eot": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "epp": {
+      "text": "",
+      "fg": "#80530d"
+    },
+    "epub": {
+      "text": "",
+      "fg": "#755836"
+    },
+    "erb": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "erl": {
+      "text": "",
+      "fg": "#8a2b72"
+    },
+    "ex": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "exe": {
+      "text": "",
+      "fg": "#9f0500"
+    },
+    "exs": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "f#": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "f3d": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "f90": {
+      "text": "󱈚",
+      "fg": "#563b70"
+    },
+    "fbx": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "fcbak": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fcmacro": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fcmat": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fcparam": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fcscript": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fcstd": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fcstd1": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fctb": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fctl": {
+      "text": "",
+      "fg": "#98262c"
+    },
+    "fdmdownload": {
+      "text": "",
+      "fg": "#226654"
+    },
+    "feature": {
+      "text": "",
+      "fg": "#007e12"
+    },
+    "fish": {
+      "text": "",
+      "fg": "#3a4446"
+    },
+    "flac": {
+      "text": "",
+      "fg": "#005880"
+    },
+    "flc": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "flf": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "fnl": {
+      "text": "",
+      "fg": "#33312b"
+    },
+    "fodg": {
+      "text": "",
+      "fg": "#333211"
+    },
+    "fodp": {
+      "text": "",
+      "fg": "#7f4e22"
+    },
+    "fods": {
+      "text": "",
+      "fg": "#28541a"
+    },
+    "fodt": {
+      "text": "",
+      "fg": "#16667e"
+    },
+    "frag": {
+      "text": "",
+      "fg": "#40647c"
+    },
+    "fs": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "fsi": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "fsscript": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "fsx": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "gcode": {
+      "text": "󰐫",
+      "fg": "#0f5582"
+    },
+    "gd": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "gemspec": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "geom": {
+      "text": "",
+      "fg": "#40647c"
+    },
+    "gif": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "git": {
+      "text": "",
+      "fg": "#b5391e"
+    },
+    "glb": {
+      "text": "",
+      "fg": "#80581e"
+    },
+    "gleam": {
+      "text": "",
+      "fg": "#553a51"
+    },
+    "glsl": {
+      "text": "",
+      "fg": "#40647c"
+    },
+    "gnumakefile": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "go": {
+      "text": "",
+      "fg": "#0082a2"
+    },
+    "godot": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "gpr": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "gql": {
+      "text": "",
+      "fg": "#ac2880"
+    },
+    "gradle": {
+      "text": "",
+      "fg": "#005f87"
+    },
+    "graphql": {
+      "text": "",
+      "fg": "#ac2880"
+    },
+    "gresource": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "gv": {
+      "text": "󱁉",
+      "fg": "#244a6a"
+    },
+    "gz": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "h": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "haml": {
+      "text": "",
+      "fg": "#2f2f2d"
+    },
+    "hbs": {
+      "text": "",
+      "fg": "#a04f1d"
+    },
+    "heex": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "hex": {
+      "text": "",
+      "fg": "#224abf"
+    },
+    "hh": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "hpp": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "hrl": {
+      "text": "",
+      "fg": "#8a2b72"
+    },
+    "hs": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "htm": {
+      "text": "",
+      "fg": "#aa391c"
+    },
+    "html": {
+      "text": "",
+      "fg": "#ab3a1c"
+    },
+    "http": {
+      "text": "",
+      "fg": "#006a95"
+    },
+    "huff": {
+      "text": "󰡘",
+      "fg": "#4242c7"
+    },
+    "hurl": {
+      "text": "",
+      "fg": "#bf0266"
+    },
+    "hx": {
+      "text": "",
+      "fg": "#9c5715"
+    },
+    "hxx": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "ical": {
+      "text": "",
+      "fg": "#2b2e83"
+    },
+    "icalendar": {
+      "text": "",
+      "fg": "#2b2e83"
+    },
+    "ico": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "ics": {
+      "text": "",
+      "fg": "#2b2e83"
+    },
+    "ifb": {
+      "text": "",
+      "fg": "#2b2e83"
+    },
+    "ifc": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "ige": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "iges": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "igs": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "image": {
+      "text": "",
+      "fg": "#453f43"
+    },
+    "img": {
+      "text": "",
+      "fg": "#453f43"
+    },
+    "import": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "info": {
+      "text": "",
+      "fg": "#333329"
+    },
+    "ini": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "ino": {
+      "text": "",
+      "fg": "#397981"
+    },
+    "ipynb": {
+      "text": "",
+      "fg": "#a35301"
+    },
+    "iso": {
+      "text": "",
+      "fg": "#453f43"
+    },
+    "ixx": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "jar": {
+      "text": "",
+      "fg": "#805834"
+    },
+    "java": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "jl": {
+      "text": "",
+      "fg": "#6c4b7c"
+    },
+    "jpeg": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "jpg": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "js": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "json": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "json5": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "jsonc": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "jsx": {
+      "text": "",
+      "fg": "#158197"
+    },
+    "jwmrc": {
+      "text": "",
+      "fg": "#005a9a"
+    },
+    "jxl": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "kbx": {
+      "text": "󰯄",
+      "fg": "#565856"
+    },
+    "kdb": {
+      "text": "",
+      "fg": "#3e7427"
+    },
+    "kdbx": {
+      "text": "",
+      "fg": "#3e7427"
+    },
+    "kdenlive": {
+      "text": "",
+      "fg": "#425c79"
+    },
+    "kdenlivetitle": {
+      "text": "",
+      "fg": "#425c79"
+    },
+    "kicad_dru": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_mod": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_pcb": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_prl": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_pro": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_sch": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_sym": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "kicad_wks": {
+      "text": "",
+      "fg": "#333333"
+    },
+    "ko": {
+      "text": "",
+      "fg": "#494a47"
+    },
+    "kpp": {
+      "text": "",
+      "fg": "#a12ea7"
+    },
+    "kra": {
+      "text": "",
+      "fg": "#a12ea7"
+    },
+    "krz": {
+      "text": "",
+      "fg": "#a12ea7"
+    },
+    "ksh": {
+      "text": "",
+      "fg": "#3a4446"
+    },
+    "kt": {
+      "text": "",
+      "fg": "#5f3ebf"
+    },
+    "kts": {
+      "text": "",
+      "fg": "#5f3ebf"
+    },
+    "lck": {
+      "text": "",
+      "fg": "#5e5e5e"
+    },
+    "leex": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "less": {
+      "text": "",
+      "fg": "#563d7c"
+    },
+    "lff": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "lhs": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "lib": {
+      "text": "",
+      "fg": "#4d2c0b"
+    },
+    "license": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "liquid": {
+      "text": "",
+      "fg": "#4a6024"
+    },
+    "lock": {
+      "text": "",
+      "fg": "#5e5e5e"
+    },
+    "log": {
+      "text": "󰌱",
+      "fg": "#4a4a4a"
+    },
+    "lrc": {
+      "text": "󰨖",
+      "fg": "#805c0a"
+    },
+    "lua": {
+      "text": "",
+      "fg": "#366b8a"
+    },
+    "luac": {
+      "text": "",
+      "fg": "#366b8a"
+    },
+    "luau": {
+      "text": "",
+      "fg": "#007abf"
+    },
+    "m": {
+      "text": "",
+      "fg": "#3b69aa"
+    },
+    "m3u": {
+      "text": "󰲹",
+      "fg": "#764a57"
+    },
+    "m3u8": {
+      "text": "󰲹",
+      "fg": "#764a57"
+    },
+    "m4a": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "m4v": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "magnet": {
+      "text": "",
+      "fg": "#a51b16"
+    },
+    "makefile": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "markdown": {
+      "text": "",
+      "fg": "#4a4a4a"
+    },
+    "material": {
+      "text": "",
+      "fg": "#8a2b72"
+    },
+    "md": {
+      "text": "",
+      "fg": "#4a4a4a"
+    },
+    "md5": {
+      "text": "󰕥",
+      "fg": "#5d5975"
+    },
+    "mdx": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "mint": {
+      "text": "󰌪",
+      "fg": "#44604a"
+    },
+    "mjs": {
+      "text": "",
+      "fg": "#504b1e"
+    },
+    "mk": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "mkv": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "ml": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "mli": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "mm": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "mo": {
+      "text": "",
+      "fg": "#654ca7"
+    },
+    "mobi": {
+      "text": "",
+      "fg": "#755836"
+    },
+    "mojo": {
+      "text": "",
+      "fg": "#bf3917"
+    },
+    "mov": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "mp3": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "mp4": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "mpp": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "msf": {
+      "text": "",
+      "fg": "#0e5ca9"
+    },
+    "mts": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "mustache": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "nfo": {
+      "text": "",
+      "fg": "#333329"
+    },
+    "nim": {
+      "text": "",
+      "fg": "#514700"
+    },
+    "nix": {
+      "text": "",
+      "fg": "#3f5d72"
+    },
+    "norg": {
+      "text": "",
+      "fg": "#365a8e"
+    },
+    "nswag": {
+      "text": "",
+      "fg": "#427516"
+    },
+    "nu": {
+      "text": "",
+      "fg": "#276f4e"
+    },
+    "o": {
+      "text": "",
+      "fg": "#9f0500"
+    },
+    "obj": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "odf": {
+      "text": "",
+      "fg": "#aa3c64"
+    },
+    "odg": {
+      "text": "",
+      "fg": "#333211"
+    },
+    "odin": {
+      "text": "󰟢",
+      "fg": "#2a629e"
+    },
+    "odp": {
+      "text": "",
+      "fg": "#7f4e22"
+    },
+    "ods": {
+      "text": "",
+      "fg": "#28541a"
+    },
+    "odt": {
+      "text": "",
+      "fg": "#16667e"
+    },
+    "oga": {
+      "text": "",
+      "fg": "#005880"
+    },
+    "ogg": {
+      "text": "",
+      "fg": "#005880"
+    },
+    "ogv": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "ogx": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "opus": {
+      "text": "",
+      "fg": "#005880"
+    },
+    "org": {
+      "text": "",
+      "fg": "#4f7166"
+    },
+    "otf": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "out": {
+      "text": "",
+      "fg": "#9f0500"
+    },
+    "part": {
+      "text": "",
+      "fg": "#226654"
+    },
+    "patch": {
+      "text": "",
+      "fg": "#41535b"
+    },
+    "pck": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "pcm": {
+      "text": "",
+      "fg": "#005880"
+    },
+    "pdf": {
+      "text": "",
+      "fg": "#b30b00"
+    },
+    "php": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "pl": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "pls": {
+      "text": "󰲹",
+      "fg": "#764a57"
+    },
+    "ply": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "pm": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "png": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "po": {
+      "text": "",
+      "fg": "#1c708e"
+    },
+    "pot": {
+      "text": "",
+      "fg": "#1c708e"
+    },
+    "pp": {
+      "text": "",
+      "fg": "#80530d"
+    },
+    "ppt": {
+      "text": "󰈧",
+      "fg": "#983826"
+    },
+    "pptx": {
+      "text": "󰈧",
+      "fg": "#983826"
+    },
+    "prisma": {
+      "text": "",
+      "fg": "#444da2"
+    },
+    "pro": {
+      "text": "",
+      "fg": "#725c2a"
+    },
+    "ps1": {
+      "text": "󰨊",
+      "fg": "#325698"
+    },
+    "psb": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "psd": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "psd1": {
+      "text": "󰨊",
+      "fg": "#4f5893"
+    },
+    "psm1": {
+      "text": "󰨊",
+      "fg": "#4f5893"
+    },
+    "pub": {
+      "text": "󰷖",
+      "fg": "#4c422f"
+    },
+    "pxd": {
+      "text": "",
+      "fg": "#3c6f98"
+    },
+    "pxi": {
+      "text": "",
+      "fg": "#3c6f98"
+    },
+    "py": {
+      "text": "",
+      "fg": "#805e02"
+    },
+    "pyc": {
+      "text": "",
+      "fg": "#332d1d"
+    },
+    "pyd": {
+      "text": "",
+      "fg": "#332d1d"
+    },
+    "pyi": {
+      "text": "",
+      "fg": "#805e02"
+    },
+    "pyo": {
+      "text": "",
+      "fg": "#332d1d"
+    },
+    "pyw": {
+      "text": "",
+      "fg": "#3c6f98"
+    },
+    "pyx": {
+      "text": "",
+      "fg": "#3c6f98"
+    },
+    "qm": {
+      "text": "",
+      "fg": "#1c708e"
+    },
+    "qml": {
+      "text": "",
+      "fg": "#2b8937"
+    },
+    "qrc": {
+      "text": "",
+      "fg": "#2b8937"
+    },
+    "qss": {
+      "text": "",
+      "fg": "#2b8937"
+    },
+    "query": {
+      "text": "",
+      "fg": "#607035"
+    },
+    "r": {
+      "text": "󰟔",
+      "fg": "#1a4c8c"
+    },
+    "rake": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "rar": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "rasi": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "razor": {
+      "text": "󱦘",
+      "fg": "#512bd4"
+    },
+    "rb": {
+      "text": "",
+      "fg": "#701516"
+    },
+    "res": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "resi": {
+      "text": "",
+      "fg": "#a33759"
+    },
+    "rlib": {
+      "text": "",
+      "fg": "#6f5242"
+    },
+    "rmd": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "rproj": {
+      "text": "󰗆",
+      "fg": "#286844"
+    },
+    "rs": {
+      "text": "",
+      "fg": "#6f5242"
+    },
+    "rss": {
+      "text": "",
+      "fg": "#7e4e1e"
+    },
+    "s": {
+      "text": "",
+      "fg": "#005594"
+    },
+    "sass": {
+      "text": "",
+      "fg": "#a33759"
+    },
+    "sbt": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "sc": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "scad": {
+      "text": "",
+      "fg": "#53480f"
+    },
+    "scala": {
+      "text": "",
+      "fg": "#992e33"
+    },
+    "scm": {
+      "text": "󰘧",
+      "fg": "#303030"
+    },
+    "scss": {
+      "text": "",
+      "fg": "#a33759"
+    },
+    "sh": {
+      "text": "",
+      "fg": "#3a4446"
+    },
+    "sha1": {
+      "text": "󰕥",
+      "fg": "#5d5975"
+    },
+    "sha224": {
+      "text": "󰕥",
+      "fg": "#5d5975"
+    },
+    "sha256": {
+      "text": "󰕥",
+      "fg": "#5d5975"
+    },
+    "sha384": {
+      "text": "󰕥",
+      "fg": "#5d5975"
+    },
+    "sha512": {
+      "text": "󰕥",
+      "fg": "#5d5975"
+    },
+    "sig": {
+      "text": "󰘧",
+      "fg": "#975122"
+    },
+    "signature": {
+      "text": "󰘧",
+      "fg": "#975122"
+    },
+    "skp": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "sldasm": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "sldprt": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "slim": {
+      "text": "",
+      "fg": "#aa391c"
+    },
+    "sln": {
+      "text": "",
+      "fg": "#643995"
+    },
+    "slnx": {
+      "text": "",
+      "fg": "#643995"
+    },
+    "slvs": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "sml": {
+      "text": "󰘧",
+      "fg": "#975122"
+    },
+    "so": {
+      "text": "",
+      "fg": "#494a47"
+    },
+    "sol": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "spec.js": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "spec.jsx": {
+      "text": "",
+      "fg": "#158197"
+    },
+    "spec.ts": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "spec.tsx": {
+      "text": "",
+      "fg": "#1354bf"
+    },
+    "spx": {
+      "text": "",
+      "fg": "#005880"
+    },
+    "sql": {
+      "text": "",
+      "fg": "#494848"
+    },
+    "sqlite": {
+      "text": "",
+      "fg": "#494848"
+    },
+    "sqlite3": {
+      "text": "",
+      "fg": "#494848"
+    },
+    "srt": {
+      "text": "󰨖",
+      "fg": "#805c0a"
+    },
+    "ssa": {
+      "text": "󰨖",
+      "fg": "#805c0a"
+    },
+    "ste": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "step": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "stl": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "stories.js": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stories.jsx": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stories.mjs": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stories.svelte": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stories.ts": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stories.tsx": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stories.vue": {
+      "text": "",
+      "fg": "#aa2f59"
+    },
+    "stp": {
+      "text": "󰻫",
+      "fg": "#576342"
+    },
+    "strings": {
+      "text": "",
+      "fg": "#1c708e"
+    },
+    "styl": {
+      "text": "",
+      "fg": "#466024"
+    },
+    "sub": {
+      "text": "󰨖",
+      "fg": "#805c0a"
+    },
+    "sublime": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "suo": {
+      "text": "",
+      "fg": "#643995"
+    },
+    "sv": {
+      "text": "󰍛",
+      "fg": "#017226"
+    },
+    "svelte": {
+      "text": "",
+      "fg": "#bf2e00"
+    },
+    "svg": {
+      "text": "󰜡",
+      "fg": "#80581e"
+    },
+    "svgz": {
+      "text": "󰜡",
+      "fg": "#80581e"
+    },
+    "svh": {
+      "text": "󰍛",
+      "fg": "#017226"
+    },
+    "swift": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "t": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "tbc": {
+      "text": "󰛓",
+      "fg": "#1e5cb3"
+    },
+    "tcl": {
+      "text": "󰛓",
+      "fg": "#1e5cb3"
+    },
+    "templ": {
+      "text": "",
+      "fg": "#6e5e18"
+    },
+    "terminal": {
+      "text": "",
+      "fg": "#217929"
+    },
+    "test.js": {
+      "text": "",
+      "fg": "#666620"
+    },
+    "test.jsx": {
+      "text": "",
+      "fg": "#158197"
+    },
+    "test.ts": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "test.tsx": {
+      "text": "",
+      "fg": "#1354bf"
+    },
+    "tex": {
+      "text": "",
+      "fg": "#3d6117"
+    },
+    "tf": {
+      "text": "",
+      "fg": "#4732af"
+    },
+    "tfvars": {
+      "text": "",
+      "fg": "#4732af"
+    },
+    "tgz": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "tmpl": {
+      "text": "",
+      "fg": "#6e5e18"
+    },
+    "tmux": {
+      "text": "",
+      "fg": "#0f8c13"
+    },
+    "toml": {
+      "text": "",
+      "fg": "#753219"
+    },
+    "torrent": {
+      "text": "",
+      "fg": "#226654"
+    },
+    "tres": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "ts": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "tscn": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "tsconfig": {
+      "text": "",
+      "fg": "#aa5a00"
+    },
+    "tsx": {
+      "text": "",
+      "fg": "#1354bf"
+    },
+    "ttf": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "twig": {
+      "text": "",
+      "fg": "#466024"
+    },
+    "txt": {
+      "text": "󰈙",
+      "fg": "#447028"
+    },
+    "txz": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "typ": {
+      "text": "",
+      "fg": "#097d80"
+    },
+    "typoscript": {
+      "text": "",
+      "fg": "#aa5a00"
+    },
+    "ui": {
+      "text": "",
+      "fg": "#015bf0"
+    },
+    "v": {
+      "text": "󰍛",
+      "fg": "#017226"
+    },
+    "vala": {
+      "text": "",
+      "fg": "#5c2e8b"
+    },
+    "vert": {
+      "text": "",
+      "fg": "#40647c"
+    },
+    "vh": {
+      "text": "󰍛",
+      "fg": "#017226"
+    },
+    "vhd": {
+      "text": "󰍛",
+      "fg": "#017226"
+    },
+    "vhdl": {
+      "text": "󰍛",
+      "fg": "#017226"
+    },
+    "vi": {
+      "text": "",
+      "fg": "#554203"
+    },
+    "vim": {
+      "text": "",
+      "fg": "#017226"
+    },
+    "vsh": {
+      "text": "",
+      "fg": "#3e5a7f"
+    },
+    "vsix": {
+      "text": "",
+      "fg": "#643995"
+    },
+    "vue": {
+      "text": "",
+      "fg": "#466024"
+    },
+    "wasm": {
+      "text": "",
+      "fg": "#4539a4"
+    },
+    "wav": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "webm": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "webmanifest": {
+      "text": "",
+      "fg": "#504b1e"
+    },
+    "webp": {
+      "text": "",
+      "fg": "#6b4d83"
+    },
+    "webpack": {
+      "text": "󰜫",
+      "fg": "#36677c"
+    },
+    "wma": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "wmv": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "woff": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "woff2": {
+      "text": "",
+      "fg": "#2f2f2f"
+    },
+    "wrl": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "wrz": {
+      "text": "󰆧",
+      "fg": "#5b5b5b"
+    },
+    "wv": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "wvc": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "x": {
+      "text": "",
+      "fg": "#3b69aa"
+    },
+    "xaml": {
+      "text": "󰙳",
+      "fg": "#512bd4"
+    },
+    "xcf": {
+      "text": "",
+      "fg": "#4a4434"
+    },
+    "xcplayground": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "xcstrings": {
+      "text": "",
+      "fg": "#1c708e"
+    },
+    "xls": {
+      "text": "󰈛",
+      "fg": "#207245"
+    },
+    "xlsx": {
+      "text": "󰈛",
+      "fg": "#207245"
+    },
+    "xm": {
+      "text": "",
+      "fg": "#36677c"
+    },
+    "xml": {
+      "text": "󰗀",
+      "fg": "#975122"
+    },
+    "xpi": {
+      "text": "",
+      "fg": "#bf1401"
+    },
+    "xslt": {
+      "text": "󰗀",
+      "fg": "#227193"
+    },
+    "xul": {
+      "text": "",
+      "fg": "#975122"
+    },
+    "xz": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "yaml": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "yml": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "zig": {
+      "text": "",
+      "fg": "#7b4d0e"
+    },
+    "zip": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "zsh": {
+      "text": "",
+      "fg": "#447028"
+    },
+    "zst": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "🔥": {
+      "text": "",
+      "fg": "#bf3917"
+    }
+  },
+  "defaults": {
+    "file": {
+      "text": "",
+      "fg": "#657b83"
+    },
+    "image": {
+      "text": "",
+      "fg": "#b58900"
+    },
+    "pdf": {
+      "text": "",
+      "fg": "#dc322f"
+    },
+    "audio": {
+      "text": "",
+      "fg": "#0075aa"
+    },
+    "video": {
+      "text": "",
+      "fg": "#7e4c10"
+    },
+    "archive": {
+      "text": "",
+      "fg": "#76520c"
+    },
+    "config": {
+      "text": "",
+      "fg": "#526064"
+    },
+    "document": {
+      "text": "󰈬",
+      "fg": "#657b83"
+    }
+  }
+}
