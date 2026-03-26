@@ -943,6 +943,30 @@ ul {
 	66% { content: '...'; }
 }
 
+.todo-save-error {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-left: 10px;
+	height: 30px;
+	padding: 0 11px;
+	border-radius: 8px;
+	background: rgba(0, 0, 0, 0.04);
+	color: var(--danger);
+	font-size: 0.73rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+}
+
+.todo-save-error-dots::after {
+	content: '.';
+	display: inline-block;
+	width: 1.2em;
+	text-align: left;
+	animation: noteSaveRetryDots 1.5s steps(1) infinite;
+}
+
 .note-source-wrap,
 .note-preview {
 	flex: 1;

@@ -249,6 +249,7 @@ function Workspace() {
 	const [noteView, setNoteView] = useState<NoteView>('source');
 	const [noteUnsaved, setNoteUnsaved] = useState(false);
 	const [noteSaveError, setNoteSaveError] = useState(false);
+	const [todoSaveError, setTodoSaveError] = useState(false);
 	const [stashedFiles, setStashedFiles] = useState<StashedFile[]>(() => readFilesByKey(CLOUD_CACHE_FILES_KEY));
 	const [isUploadingFiles, setIsUploadingFiles] = useState(false);
 	const [uploadProgress, setUploadProgress] = useState(0);
@@ -257,6 +258,8 @@ function Workspace() {
 	const dragStateRef = useRef({ dropBeforeTodoId: '', lastUpdateTime: 0 });
 	const pointerDragRef = useRef({ startY: 0, moved: false });
 	const todoSaveTimerRef = useRef<number | null>(null);
+	const todoRetryTimerRef = useRef<number | null>(null);
+	const todosRef = useRef(todos);
 	const noteSaveTimerRef = useRef<number | null>(null);
 	const noteContentRef = useRef(noteContent);
 	const noteRetryTimerRef = useRef<number | null>(null);
@@ -271,6 +274,7 @@ function Workspace() {
 	});
 	const isAuthorized = authScreen === 'ready';
 	noteContentRef.current = noteContent;
+	todosRef.current = todos;
 
 	useEffect(() => {
 		fetch('/yazi-file-icons.json')
@@ -827,6 +831,36 @@ function Workspace() {
 		localStorage.setItem(CLOUD_CACHE_FILES_KEY, JSON.stringify(stashedFiles));
 	}, [stashedFiles]);
 
+	function saveTodosToServer(todosToSave: Todo[]) {
+		fetch('/tasks.json', {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(todosToSave)
+		})
+		.then(response => {
+			if (response.status === 401) {
+				setAuthScreen('login');
+				setAuthError('Session expired, please sign in again.');
+				throw new Error('unauthorized');
+			}
+			if (!response.ok) {
+				throw new Error('todo write failed');
+			}
+			setTodoSaveError(false);
+		})
+		.catch((error) => {
+			if (error.message === 'unauthorized') return;
+			setTodoSaveError(true);
+			if (todoRetryTimerRef.current) {
+				window.clearTimeout(todoRetryTimerRef.current);
+			}
+			todoRetryTimerRef.current = window.setTimeout(() => {
+				todoRetryTimerRef.current = null;
+				saveTodosToServer(todosRef.current);
+			}, 3000);
+		});
+	}
+
 	function saveNoteToServer(content: string) {
 		fetch('/api/note', {
 			method: 'PUT',
@@ -986,23 +1020,12 @@ function Workspace() {
 		if (todoSaveTimerRef.current) {
 			window.clearTimeout(todoSaveTimerRef.current);
 		}
+		if (todoRetryTimerRef.current) {
+			window.clearTimeout(todoRetryTimerRef.current);
+			todoRetryTimerRef.current = null;
+		}
 		todoSaveTimerRef.current = window.setTimeout(() => {
-			fetch('/tasks.json', {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(todos)
-			})
-				.then(response => {
-					if (response.status === 401) {
-						setAuthScreen('login');
-						setAuthError('Session expired, please sign in again.');
-						throw new Error('unauthorized');
-					}
-				if (!response.ok) {
-					throw new Error('todo write failed');
-				}
-			})
-			.catch(() => undefined);
+			saveTodosToServer(todos);
 		}, 300);
 		return () => {
 			if (todoSaveTimerRef.current) {
@@ -1102,6 +1125,11 @@ function Workspace() {
 						<div className="panel-head">
 							<div>
 								<h2 className="panel-title">Todos</h2>
+								{todoSaveError && (
+									<span className="todo-save-error">
+										Save failed, retrying<span className="todo-save-error-dots" />
+									</span>
+								)}
 							</div>
 							<div className="panel-head-actions">
 								<div className="panel-count">{todos.length}</div>
