@@ -1,10 +1,11 @@
 # MyDashboard
 
-一个基于 React + TypeScript 的个人效率面板，集成了待办事项、Markdown 笔记和文件收纳，支持自托管部署。
+一个基于 Vite + React + Node 开发的个人效率面板，集成了待办事项、Markdown 笔记和文件收纳，支持自托管部署。
 
 ## 项目简介
 
 本项目是一个三栏式工作台：
+
 - **Todos**：管理任务，支持新增、编辑、完成、重要标记与拖拽排序  
 - **Notes**：内置 Markdown 编辑与预览，支持代码高亮  
 - **Files**：上传并管理文件，展示文件图标、大小与上传时间
@@ -53,6 +54,7 @@ my-dashboard/
 - 语义字段：`comment/string/number/keyword/title/builtin/symbol/meta`
 
 映射优先级：
+
 - 语义字段优先（例如 `keyword`）
 - 若语义字段缺失，则自动回退到 ANSI 对应颜色（例如 `red/brightRed`）
 
@@ -108,3 +110,4 @@ npm run server
 ```bash
 ./stop-server.sh
 ```
+
