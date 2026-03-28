@@ -40,4 +40,3 @@ if [ "$STOPPED_BY_PID" -eq 0 ] && [ "$STOPPED_BY_PORT" -eq 0 ]; then
 fi
 
 rm -f dist/runtime/server.pid
-rm -f "$AUTH_FILE"

@@ -54,8 +54,6 @@ if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
   sleep 1
 fi
 
-rm -f "$AUTH_FILE"
-
 npm run build
 
 mkdir -p "$RUNTIME_DIR"
@@ -75,4 +73,31 @@ if command -v lsof >/dev/null 2>&1; then
 fi
 echo "$SERVER_PID" > "$PID_FILE"
 echo "Server started: PID $SERVER_PID"
-echo "App URL: http://localhost:${PORT}/"
+
+# Detect LAN IP
+_get_local_ip() {
+  local os="$(uname -s 2>/dev/null)"
+  local ip=""
+  case "$os" in
+    Darwin)
+      ip="$(ipconfig getifaddr en0 2>/dev/null)"
+      [ -z "$ip" ] && ip="$(ipconfig getifaddr en1 2>/dev/null)"
+      [ -z "$ip" ] && ip="$(ifconfig 2>/dev/null | awk '/inet /{if($2!="127.0.0.1"){print $2;exit}}')"
+      ;;
+    Linux)
+      ip="$(ip route get 1.1.1.1 2>/dev/null | grep -oE 'src [0-9.]+' | awk '{print $2}')"
+      [ -z "$ip" ] && ip="$(hostname -I 2>/dev/null | awk '{print $1}')"
+      ;;
+    MINGW*|MSYS*|CYGWIN*)
+      ip="$(ipconfig 2>/dev/null | grep -m1 -E 'IPv4|IP Address' | awk -F': ' '{gsub(/[[:space:]]+/,"",$2); print $2}')"
+      ;;
+  esac
+  echo "$ip"
+}
+
+LOCAL_IP="$(_get_local_ip)"
+PUBLIC_IP="$(curl -s --max-time 4 https://api.ipify.org 2>/dev/null || true)"
+
+echo "  Local  : http://localhost:${PORT}/"
+[ -n "$LOCAL_IP"  ] && echo "  LAN    : http://${LOCAL_IP}:${PORT}/"
+[ -n "$PUBLIC_IP" ] && echo "  Public : http://${PUBLIC_IP}:${PORT}/"
