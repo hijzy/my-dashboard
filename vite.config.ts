@@ -17,6 +17,12 @@ export default defineConfig({
 					if (id.includes('markdown-it')) {
 						return 'markdown-it';
 					}
+					if (id.includes('node_modules/katex')) {
+						return 'katex';
+					}
+					if (id.includes('node_modules/mermaid') || id.includes('node_modules/d3') || id.includes('node_modules/dagre') || id.includes('node_modules/elkjs')) {
+						return 'mermaid';
+					}
 				}
 			}
 		}

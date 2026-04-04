@@ -1,4 +1,4 @@
-import { DragEvent as ReactDragEvent, FormEvent, PointerEvent as ReactPointerEvent, Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { DragEvent as ReactDragEvent, FormEvent, PointerEvent as ReactPointerEvent, Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import './dashboard.css';
 import ItemCard from './task-card';
 import type { Todo } from './types';
@@ -69,6 +69,11 @@ type DragPreview = {
 	offsetY: number;
 	x: number;
 	y: number;
+};
+
+type ConfirmDialog = {
+	message: string;
+	onConfirm: () => void;
 };
 
 const CLOUD_CACHE_TASKS_KEY = 'tasks_cloud_cache';
@@ -538,7 +543,9 @@ function Workspace() {
 	}
 
 	function handleClear() {
-		setTodos([]);
+		requestConfirm('Clear all todos?', () => {
+			setTodos([]);
+		});
 	}
 
 	function handleEditTodo(todo: Todo) {
@@ -653,6 +660,21 @@ function Workspace() {
 		uploadXhrRef.current?.abort();
 	}
 
+	const [confirmDialog, setConfirmDialog] = useState<ConfirmDialog | null>(null);
+
+	const requestConfirm = useCallback((message: string, onConfirm: () => void) => {
+		setConfirmDialog({ message, onConfirm });
+	}, []);
+
+	const dismissConfirm = useCallback(() => {
+		setConfirmDialog(null);
+	}, []);
+
+	const acceptConfirm = useCallback(() => {
+		confirmDialog?.onConfirm();
+		setConfirmDialog(null);
+	}, [confirmDialog]);
+
 	const [isDraggingOver, setIsDraggingOver] = useState(false);
 	const dragOverCountRef = useRef(0);
 
@@ -685,17 +707,19 @@ function Workspace() {
 		event.preventDefault();
 	}
 
-	async function handleClearFiles() {
-		try {
-			const response = await fetch('/api/files', { method: 'DELETE' });
-			if (!response.ok) {
-				throw new Error('clear failed');
+	function handleClearFiles() {
+		requestConfirm('Clear all files?', async () => {
+			try {
+				const response = await fetch('/api/files', { method: 'DELETE' });
+				if (!response.ok) {
+					throw new Error('clear failed');
+				}
+				setStashedFiles([]);
+				localStorage.setItem(CLOUD_CACHE_FILES_KEY, JSON.stringify([]));
+			} catch {
+				showFileStatus('Clear failed', 3500);
 			}
-			setStashedFiles([]);
-			localStorage.setItem(CLOUD_CACHE_FILES_KEY, JSON.stringify([]));
-		} catch {
-			showFileStatus('Clear failed', 3500);
-		}
+		});
 	}
 
 	async function handleDeleteFile(fileId: string, fileName: string) {
@@ -1132,7 +1156,7 @@ function Workspace() {
 								)}
 							</div>
 							<div className="panel-head-actions">
-								<div className="panel-count">{todos.length}</div>
+								<div className="panel-count">{importantTodos.length + taskTodos.length}</div>
 								{todos.length > 0 && (
 									<button onClick={handleClear} className="clear-button" type="button">
 										Clear all
@@ -1282,7 +1306,7 @@ function Workspace() {
 							</div>
 							<div className="panel-head-actions">
 								{stashedFiles.length > 0 && (
-									<button type="button" className="clear-button" onClick={() => void handleClearFiles()}>
+									<button type="button" className="clear-button" onClick={handleClearFiles}>
 										Clear all
 									</button>
 								)}
@@ -1380,6 +1404,17 @@ function Workspace() {
 									{dragPreview.todo.completed ? `✓ Completed at ${formatStoredDate(dragPreview.todo.completedAt)}` : `🕒 Created at ${formatStoredDate(dragPreview.todo.createdAt)}`}
 								</p>
 							)}
+						</div>
+					</div>
+				</div>
+			)}
+			{confirmDialog && (
+				<div className="confirm-overlay" onClick={dismissConfirm}>
+					<div className="confirm-card" onClick={e => e.stopPropagation()}>
+						<p className="confirm-message">{confirmDialog.message}</p>
+						<div className="confirm-actions">
+							<button type="button" className="confirm-cancel" onClick={dismissConfirm}>Cancel</button>
+							<button type="button" className="confirm-accept" onClick={acceptConfirm}>Confirm</button>
 						</div>
 					</div>
 				</div>

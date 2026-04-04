@@ -1181,6 +1181,68 @@ ul {
 	color: #4f46e5;
 }
 
+.markdown-body .task-list-list {
+	list-style: none;
+	padding-left: 4px;
+}
+
+.markdown-body .task-list-list .task-list-item {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+}
+
+.markdown-body .task-list-list .task-list-item label {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 6px;
+	cursor: default;
+}
+
+.markdown-body .task-list-list .task-list-item input[type="checkbox"] {
+	margin: 0;
+	accent-color: var(--accent);
+	pointer-events: none;
+	position: relative;
+	top: 1px;
+}
+
+.markdown-body .katex-display {
+	margin: 0.8em 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 4px 0;
+}
+
+.markdown-body .katex {
+	font-size: 1.05em;
+}
+
+.markdown-body .mermaid {
+	margin: 0.8em 0;
+	padding: 16px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.6);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	text-align: center;
+	overflow-x: auto;
+}
+
+.markdown-body .mermaid svg {
+	max-width: 100%;
+	height: auto;
+}
+
+.markdown-body .mermaid.mermaid-error {
+	color: var(--danger);
+	font-size: 0.85em;
+	font-family: var(--font-family-code);
+	text-align: left;
+	white-space: pre-wrap;
+	background: rgba(201, 74, 74, 0.04);
+	border-color: rgba(201, 74, 74, 0.15);
+}
+
 .drop-zone {
 	margin: 0 var(--panel-padding) 12px;
 	padding: 18px 14px 20px;
@@ -1461,6 +1523,101 @@ ul {
 .note-preview *::selection {
 	background: var(--note-code-selection-bg);
 	color: var(--note-code-selection-fg);
+}
+
+.confirm-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 9000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(15, 23, 42, 0.18);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	animation: confirmOverlayIn 0.18s ease;
+}
+
+@keyframes confirmOverlayIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+.confirm-card {
+	width: auto;
+	min-width: 220px;
+	max-width: min(340px, 85vw);
+	padding: 24px 28px 22px;
+	border-radius: 16px;
+	background: rgba(255, 255, 255, 0.82);
+	border: 1px solid rgba(255, 255, 255, 0.88);
+	box-shadow:
+		0 0 0 1px rgba(0, 0, 0, 0.03),
+		0 8px 24px rgba(0, 0, 0, 0.08),
+		0 24px 56px rgba(0, 0, 0, 0.06);
+	backdrop-filter: blur(28px) saturate(1.35);
+	-webkit-backdrop-filter: blur(28px) saturate(1.35);
+	animation: confirmCardIn 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes confirmCardIn {
+	from {
+		opacity: 0;
+		transform: scale(0.96) translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
+.confirm-message {
+	margin: 0 0 20px;
+	font-size: 0.88rem;
+	font-weight: 600;
+	line-height: 1.45;
+	color: var(--text-main);
+	text-align: center;
+}
+
+.confirm-actions {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.confirm-cancel,
+.confirm-accept {
+	height: 32px;
+	padding: 0 16px;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.78rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.14s ease, background-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.confirm-cancel {
+	background: rgba(0, 0, 0, 0.05);
+	color: var(--text-sub);
+}
+
+.confirm-cancel:hover {
+	background: rgba(0, 0, 0, 0.09);
+	color: var(--text-main);
+}
+
+.confirm-accept {
+	background: var(--danger);
+	color: var(--white);
+}
+
+.confirm-accept:hover {
+	background: #b33e3e;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(201, 74, 74, 0.2);
 }
 
 ::selection {
