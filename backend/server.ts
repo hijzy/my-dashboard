@@ -119,11 +119,7 @@ function sanitizeFileName(name: string) {
 }
 
 function decodeMultipartFileName(name: string) {
-	try {
-		return Buffer.from(name, 'latin1').toString('utf8');
-	} catch {
-		return name;
-	}
+	return Buffer.from(name, 'latin1').toString('utf8');
 }
 
 async function readAuthConfig() {
@@ -294,13 +290,8 @@ async function parseMultipartFiles(request: import('node:http').IncomingMessage)
 		});
 
 		busboy.on('file', (_fieldName, fileStream, info) => {
-			const safeName = sanitizeFileName(decodeMultipartFileName(info.filename || 'file'));
-			if (!safeName) {
-				fileStream.resume();
-				return;
-			}
-
-			const id = randomBytes(12).toString('hex');
+		const safeName = sanitizeFileName(decodeMultipartFileName(info.filename || 'file'));
+		const id = randomBytes(12).toString('hex');
 			const storedName = `${id}-${safeName}`;
 			const filePath = join(filesDir, storedName);
 			const writeStream = createWriteStream(filePath);

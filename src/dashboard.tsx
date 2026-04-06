@@ -144,10 +144,6 @@ const NotesEditor = lazy(() => import('./notes-editor').then(module => ({ defaul
 const NotesPreview = lazy(() => import('./notes-preview').then(module => ({ default: module.NotesPreview })));
 
 function scheduleIdleTask(task: () => void) {
-	if (typeof window === 'undefined') {
-		task();
-		return;
-	}
 	if (typeof window.requestIdleCallback === 'function') {
 		window.requestIdleCallback(() => task());
 		return;
@@ -198,7 +194,7 @@ function formatStoredDate(value?: string) {
 
 function getFileVisual(file: StashedFile, config: FileIconConfig | null) {
 	const normalizedName = file.name.toLowerCase();
-	const extension = normalizedName.includes('.') ? normalizedName.split('.').pop()?.toLowerCase() || '' : '';
+	const extension = normalizedName.includes('.') ? normalizedName.split('.').pop()! : '';
 	const type = file.type.toLowerCase();
 
 	const byFile = config?.files[normalizedName];
