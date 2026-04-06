@@ -91,16 +91,21 @@ function createId() {
 	return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-function normalizeTodos(rawTodos: Todo[]) {
-	return rawTodos.map(todo => {
-		if (todo.id) {
-			return todo;
+const COMPLETED_TODO_EXPIRY_DAYS = 30;
+
+function pruneExpiredCompletedTodos(todos: Todo[]) {
+	const expiryMs = COMPLETED_TODO_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+	const now = Date.now();
+	return todos.filter(todo => {
+		if (!todo.completed) {
+			return true;
 		}
-		return {
-			...todo,
-			id: createId()
-		};
+		return now - parseStoredDate(todo.completedAt)!.getTime() < expiryMs;
 	});
+}
+
+function normalizeTodos(rawTodos: Todo[]) {
+	return pruneExpiredCompletedTodos(rawTodos);
 }
 
 function readTodosByKey(key: string) {
@@ -181,12 +186,6 @@ function parseStoredDate(value?: string) {
 		const [year, month, day] = datePart.split('/').map(Number);
 		const [hours, minutes, seconds] = timePart.split(':').map(Number);
 		return new Date(year, month - 1, day, hours, minutes, seconds);
-	}
-	if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2} [A-Za-z]{3}$/.test(value)) {
-		const [datePart, timePart] = value.split(' ');
-		const [year, month, day] = datePart.split('-').map(Number);
-		const [hours, minutes] = timePart.split(':').map(Number);
-		return new Date(year, month - 1, day, hours, minutes, 0);
 	}
 	const parsed = new Date(value);
 	return Number.isNaN(parsed.getTime()) ? null : parsed;
