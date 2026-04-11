@@ -851,7 +851,7 @@ function Workspace() {
 	}, [stashedFiles]);
 
 	function saveTodosToServer(todosToSave: Todo[]) {
-		fetch('/tasks.json', {
+		fetch('/todos.json', {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(todosToSave)
@@ -972,7 +972,7 @@ function Workspace() {
 		let cancelled = false;
 		setIsHydratingRemote(true);
 		Promise.all([
-		fetch('/tasks.json').then(response => {
+		fetch('/todos.json').then(response => {
 				if (response.status === 401) {
 					setAuthScreen('login');
 					setAuthError('Session expired, please sign in again.');

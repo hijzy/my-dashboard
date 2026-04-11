@@ -34,7 +34,7 @@ export default defineConfig({
 				target: 'http://localhost:8081',
 				changeOrigin: true
 			},
-			'/tasks.json': {
+			'/todos.json': {
 				target: 'http://localhost:8081',
 				changeOrigin: true
 			}

@@ -34,7 +34,7 @@ type FileMeta = {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
 const dataDir = join(projectRoot, 'data');
-const tasksFile = join(dataDir, 'tasks.json');
+const todosFile = join(dataDir, 'todos.json');
 const authFile = join(dataDir, 'auth.json');
 const noteFile = join(dataDir, 'notes.md');
 const filesMetaFile = join(dataDir, 'files.json');
@@ -57,8 +57,8 @@ class HttpError extends Error {
 async function ensureStorage() {
 	await mkdir(dataDir, { recursive: true });
 	await mkdir(filesDir, { recursive: true });
-	if (!existsSync(tasksFile)) {
-		await writeFile(tasksFile, '[]', 'utf-8');
+	if (!existsSync(todosFile)) {
+		await writeFile(todosFile, '[]', 'utf-8');
 	}
 	if (!existsSync(authFile)) {
 		await writeFile(authFile, 'null', 'utf-8');
@@ -73,7 +73,7 @@ async function ensureStorage() {
 
 async function readTodos() {
 	try {
-		const content = await readFile(tasksFile, 'utf-8');
+		const content = await readFile(todosFile, 'utf-8');
 		const parsed = JSON.parse(content) as unknown;
 		return Array.isArray(parsed) ? (parsed as Todo[]) : [];
 	} catch {
@@ -82,7 +82,7 @@ async function readTodos() {
 }
 
 async function writeTodos(todos: Todo[]) {
-	await writeFile(tasksFile, JSON.stringify(todos, null, 2), 'utf-8');
+	await writeFile(todosFile, JSON.stringify(todos, null, 2), 'utf-8');
 }
 
 async function readNote() {
@@ -463,18 +463,18 @@ const server = createServer(async (request, response) => {
 		return;
 	}
 
-	if ((url.pathname.startsWith('/api/') || url.pathname === '/tasks.json') && !isAuthenticated(request, authConfig)) {
+	if ((url.pathname.startsWith('/api/') || url.pathname === '/todos.json') && !isAuthenticated(request, authConfig)) {
 		sendJson(response, 401, { message: 'Authentication required' });
 		return;
 	}
 
-	if (url.pathname === '/tasks.json' && request.method === 'GET') {
+	if (url.pathname === '/todos.json' && request.method === 'GET') {
 		const todos = await readTodos();
 		sendJson(response, 200, todos);
 		return;
 	}
 
-	if (url.pathname === '/tasks.json' && request.method === 'PUT') {
+	if (url.pathname === '/todos.json' && request.method === 'PUT') {
 		try {
 			const body = await parseRequestBody(request);
 			if (!Array.isArray(body)) {
