@@ -108,6 +108,24 @@ function normalizeTodos(rawTodos: Todo[]) {
 	return pruneExpiredCompletedTodos(rawTodos);
 }
 
+function getTodoGroupName(todo: Todo): GroupName {
+	if (todo.completed) {
+		return GROUP_COMPLETED;
+	}
+	if (todo.important) {
+		return GROUP_IMPORTANT;
+	}
+	return GROUP_TASKS;
+}
+
+function groupTodosBySection(todos: Todo[]) {
+	return {
+		important: todos.filter(todo => getTodoGroupName(todo) === GROUP_IMPORTANT),
+		tasks: todos.filter(todo => getTodoGroupName(todo) === GROUP_TASKS),
+		completed: todos.filter(todo => getTodoGroupName(todo) === GROUP_COMPLETED)
+	};
+}
+
 function readTodosByKey(key: string) {
 	const saved = localStorage.getItem(key);
 	if (!saved) {
@@ -351,13 +369,14 @@ function Workspace() {
 	}, []);
 
 	function getGroupName(todo: Todo): GroupName {
-		if (todo.completed) {
-			return GROUP_COMPLETED;
-		}
-		if (todo.important) {
-			return GROUP_IMPORTANT;
-		}
-		return GROUP_TASKS;
+		return getTodoGroupName(todo);
+	}
+
+	function moveTodoToGroupFront(previousTodos: Todo[], updatedTodo: Todo) {
+		const remainingTodos = previousTodos.filter(todo => todo.id !== updatedTodo.id);
+		const grouped = groupTodosBySection(remainingTodos);
+		grouped[getGroupName(updatedTodo)].unshift(updatedTodo);
+		return [...grouped.important, ...grouped.tasks, ...grouped.completed];
 	}
 
 	function reorderTodoInGroup(movedTodoId: string, targetGroup: GroupName, beforeTodoId?: string) {
@@ -367,11 +386,7 @@ function Workspace() {
 				return previousTodos;
 			}
 			const todoWithoutMoved = previousTodos.filter(todo => todo.id !== movedTodoId);
-			const grouped = {
-				important: todoWithoutMoved.filter(todo => getGroupName(todo) === GROUP_IMPORTANT),
-				tasks: todoWithoutMoved.filter(todo => getGroupName(todo) === GROUP_TASKS),
-				completed: todoWithoutMoved.filter(todo => getGroupName(todo) === GROUP_COMPLETED)
-			};
+			const grouped = groupTodosBySection(todoWithoutMoved);
 			const targetTodos = grouped[targetGroup];
 			if (beforeTodoId) {
 				const targetIndex = targetTodos.findIndex(todo => todo.id === beforeTodoId);
@@ -445,10 +460,11 @@ function Workspace() {
 	}
 
 	function separateTodos() {
+		const grouped = groupTodosBySection(todos);
 		return {
-			importantTodos: todos.filter(todo => getGroupName(todo) === GROUP_IMPORTANT),
-			taskTodos: todos.filter(todo => getGroupName(todo) === GROUP_TASKS),
-			completedTodos: todos.filter(todo => getGroupName(todo) === GROUP_COMPLETED)
+			importantTodos: grouped.important,
+			taskTodos: grouped.tasks,
+			completedTodos: grouped.completed
 		};
 	}
 
@@ -521,15 +537,11 @@ function Workspace() {
 
 	function handleCompleteTodo(todo: Todo) {
 		setTodos(previous =>
-			previous.map(item =>
-				item.id === todo.id
-					? {
-							...item,
-							completed: !item.completed,
-							completedAt: !item.completed ? formatDisplayDate() : undefined
-						}
-					: item
-			)
+			moveTodoToGroupFront(previous, {
+				...todo,
+				completed: !todo.completed,
+				completedAt: !todo.completed ? formatDisplayDate() : undefined
+			})
 		);
 	}
 
@@ -561,7 +573,12 @@ function Workspace() {
 	}
 
 	function handleMarkImportant(todo: Todo) {
-		setTodos(previous => previous.map(item => (item.id === todo.id ? { ...item, important: !item.important } : item)));
+		setTodos(previous =>
+			moveTodoToGroupFront(previous, {
+				...todo,
+				important: !todo.important
+			})
+		);
 	}
 
 	async function refreshFiles() {
