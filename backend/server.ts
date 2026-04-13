@@ -31,6 +31,12 @@ type FileMeta = {
 	storedName: string;
 };
 
+type LoginAttemptState = {
+	failures: number;
+	firstFailureAt: number;
+	blockedUntil: number;
+};
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
 const dataDir = join(projectRoot, 'data');
@@ -44,6 +50,10 @@ const port = Number(process.env.TODO_SERVER_PORT || 8081);
 const sessionCookieName = 'todo_session';
 const sessionMaxAgeSeconds = 60 * 60 * 24 * 365 * 10;
 const maxUploadBytes = 512 * 1024 * 1024;
+const loginWindowMs = 10 * 60 * 1000;
+const maxLoginFailuresPerWindow = 5;
+const loginBlockDurationMs = 10 * 60 * 1000;
+const loginAttemptsByIp = new Map<string, LoginAttemptState>();
 
 class HttpError extends Error {
 	statusCode: number;
@@ -149,6 +159,72 @@ async function writeAuthConfig(config: AuthConfig | null) {
 
 function hashPassword(password: string, salt: string) {
 	return scryptSync(password, salt, 64).toString('hex');
+}
+
+function getClientIp(request: import('node:http').IncomingMessage) {
+	const forwardedFor = request.headers['x-forwarded-for'];
+	if (typeof forwardedFor === 'string') {
+		const [firstIp] = forwardedFor.split(',');
+		if (firstIp?.trim()) {
+			return firstIp.trim();
+		}
+	}
+	if (Array.isArray(forwardedFor)) {
+		const [firstValue] = forwardedFor;
+		const [firstIp] = firstValue?.split(',') ?? [];
+		if (firstIp?.trim()) {
+			return firstIp.trim();
+		}
+	}
+	return request.socket.remoteAddress || 'unknown';
+}
+
+function getActiveLoginAttemptState(ip: string, now: number) {
+	const state = loginAttemptsByIp.get(ip);
+	if (!state) {
+		return null;
+	}
+	if (state.blockedUntil > now) {
+		return state;
+	}
+	if (now - state.firstFailureAt >= loginWindowMs) {
+		loginAttemptsByIp.delete(ip);
+		return null;
+	}
+	if (state.blockedUntil !== 0) {
+		state.blockedUntil = 0;
+		loginAttemptsByIp.set(ip, state);
+	}
+	return state;
+}
+
+function getRemainingBlockSeconds(blockedUntil: number, now: number) {
+	return Math.max(1, Math.ceil((blockedUntil - now) / 1000));
+}
+
+function recordLoginFailure(ip: string, now: number) {
+	const currentState = getActiveLoginAttemptState(ip, now);
+	if (!currentState) {
+		loginAttemptsByIp.set(ip, {
+			failures: 1,
+			firstFailureAt: now,
+			blockedUntil: 0
+		});
+		return;
+	}
+	const nextFailures = currentState.failures + 1;
+	const nextState: LoginAttemptState = {
+		...currentState,
+		failures: nextFailures
+	};
+	if (nextFailures > maxLoginFailuresPerWindow) {
+		nextState.blockedUntil = now + loginBlockDurationMs;
+	}
+	loginAttemptsByIp.set(ip, nextState);
+}
+
+function resetLoginFailures(ip: string) {
+	loginAttemptsByIp.delete(ip);
 }
 
 function readCookie(request: import('node:http').IncomingMessage, key: string) {
@@ -430,25 +506,36 @@ const server = createServer(async (request, response) => {
 	}
 
 	if (url.pathname === '/api/auth/login' && request.method === 'POST') {
-		if (!authConfig) {
-			sendJson(response, 400, { message: 'Password not initialized' });
+		const now = Date.now();
+		const clientIp = getClientIp(request);
+		const loginAttemptState = getActiveLoginAttemptState(clientIp, now);
+		if (loginAttemptState?.blockedUntil && loginAttemptState.blockedUntil > now) {
+			sendJson(
+				response,
+				429,
+				{ message: 'Too many failed login attempts. Please try again later.' },
+				{ 'Retry-After': String(getRemainingBlockSeconds(loginAttemptState.blockedUntil, now)) }
+			);
 			return;
 		}
 		try {
 			const body = await parseRequestBody(request);
 			const password = typeof (body as { password?: unknown }).password === 'string' ? (body as { password: string }).password : '';
 			const safePassword = password.trim();
-			if (!safePassword) {
-				sendJson(response, 400, { message: 'Password is required' });
+			if (!authConfig || !safePassword) {
+				recordLoginFailure(clientIp, now);
+				sendJson(response, 401, { message: 'Login failed' });
 				return;
 			}
 			const passwordHash = hashPassword(safePassword, authConfig.salt);
 			const expected = Buffer.from(authConfig.passwordHash, 'hex');
 			const actual = Buffer.from(passwordHash, 'hex');
 			if (expected.length !== actual.length || !timingSafeEqual(expected, actual)) {
-				sendJson(response, 401, { message: 'Wrong password' });
+				recordLoginFailure(clientIp, now);
+				sendJson(response, 401, { message: 'Login failed' });
 				return;
 			}
+			resetLoginFailures(clientIp);
 			const token = createSessionToken(authConfig);
 			sendJson(response, 200, { success: true }, { 'Set-Cookie': buildSessionCookie(token) });
 			return;
