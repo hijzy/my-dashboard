@@ -329,7 +329,7 @@ svg {
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
 	color: var(--text-soft);
-	opacity: 0.65;
+	opacity: 0.78;
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -340,6 +340,31 @@ svg {
 	flex: 1;
 	height: 1px;
 	background: linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent);
+}
+
+.group-title-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 14px;
+	height: 14px;
+	opacity: 0.7;
+	color: var(--text-soft);
+}
+
+.group-title-icon svg {
+	width: 100%;
+	height: 100%;
+}
+
+.todo-group.is-important .group-title-icon {
+	color: var(--important-accent);
+	opacity: 0.9;
+}
+
+.todo-group.is-completed .group-title-icon {
+	color: rgba(16, 185, 129, 0.7);
+	opacity: 0.9;
 }
 
 ul {
@@ -436,7 +461,16 @@ ul {
 	transform: translateY(calc(var(--control-height) + 20px + 6px));
 }
 
-.is-dropping .todo-item {
+.todo-group {
+	transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.todo-group.shift-down {
+	transform: translateY(calc(var(--control-height) + 20px + 6px));
+}
+
+.is-dropping .todo-item,
+.is-dropping .todo-group {
 	transition: none !important;
 }
 
@@ -466,24 +500,30 @@ ul {
 	pointer-events: none;
 }
 
-.drag-preview-card {
-	background: rgba(255, 255, 255, 0.95);
-	box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15), 0 4px 8px -4px rgba(0, 0, 0, 0.1);
+.todo-item.drag-preview-card,
+.todo-item.drag-preview-card.completed {
+	opacity: 1;
+	background: rgba(255, 255, 255, 0.42);
+	backdrop-filter: blur(20px) saturate(1.3);
+	-webkit-backdrop-filter: blur(20px) saturate(1.3);
+	border: 1px solid rgba(255, 255, 255, 0.55);
+	box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.14), 0 2px 6px -3px rgba(15, 23, 42, 0.06);
 	transform: none !important;
 }
 
-.drag-preview-card.completed {
-	opacity: 1;
-}
-
-.drag-preview-card:hover {
+.todo-item.drag-preview-card:hover,
+.todo-item.drag-preview-card.completed:hover {
 	transform: none;
-	background: rgba(255, 255, 255, 0.95);
-	box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15), 0 4px 8px -4px rgba(0, 0, 0, 0.1);
+	background: rgba(255, 255, 255, 0.42);
+	box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.14), 0 2px 6px -3px rgba(15, 23, 42, 0.06);
 }
 
 .drag-preview-handle {
 	background: transparent !important;
+}
+
+.drag-preview-card .right {
+	transform: translateX(0);
 }
 
 .drag-handle,
@@ -818,15 +858,30 @@ ul {
 	opacity: 0.7;
 }
 
+.empty-state-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 36px 16px;
+}
+
+.empty-state-icon {
+	width: 56px;
+	height: 56px;
+	color: var(--text-soft);
+	opacity: 0.36;
+}
+
 .empty-state {
 	margin: 0;
-	padding: 24px 0;
 	color: var(--text-soft);
 	font-size: 0.82rem;
 	font-weight: 500;
 	letter-spacing: 0.04em;
 	line-height: 1.6;
-	opacity: 0.55;
+	opacity: 0.62;
 	text-align: center;
 }
 
@@ -872,40 +927,70 @@ ul {
 	box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
 }
 
+.add-button:active {
+	transform: translateY(0);
+	background: rgba(59, 130, 246, 0.22);
+	box-shadow: 0 1px 3px rgba(59, 130, 246, 0.16) inset;
+}
+
 .note-panel,
 .file-panel {
 	min-height: 0;
 }
 
 .note-switch {
+	position: relative;
 	display: inline-flex;
-	align-items: center;
-	gap: 2px;
+	align-items: stretch;
+	gap: 0;
 	min-height: var(--panel-head-control-height);
 	padding: 3px;
 	border-radius: 9px;
-	background: rgba(0, 0, 0, 0.05);
+	background: rgba(15, 23, 42, 0.06);
 	overflow: hidden;
 }
 
+.note-switch::before {
+	content: '';
+	position: absolute;
+	top: 3px;
+	bottom: 3px;
+	left: 3px;
+	width: calc(50% - 3px);
+	border-radius: 7px;
+	background: var(--white);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+	transform: translateX(0);
+	transition: transform 0.24s cubic-bezier(0.2, 0, 0, 1);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.note-switch[data-view="preview"]::before {
+	transform: translateX(100%);
+}
+
 .note-switch button {
+	flex: 1;
+	position: relative;
+	z-index: 1;
 	background: transparent;
 	color: var(--text-sub);
 	font-size: 0.73rem;
 	font-weight: 600;
 	border-radius: 7px;
-	transition: all 0.16s ease;
+	transition: color 0.18s ease;
+	padding: 0 14px;
 }
 
 .note-switch button:hover:not(.active) {
 	color: var(--text-main);
-	background: rgba(255, 255, 255, 0.4);
 }
 
 .note-switch button.active {
-	background: var(--white);
+	background: transparent;
 	color: var(--text-main);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+	box-shadow: none;
 }
 
 .note-unsaved-dot {
@@ -1090,6 +1175,9 @@ ul {
 	color: var(--note-code-fg) !important;
 	font-size: 14px;
 	line-height: 1.6;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(15, 23, 42, 0.04);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
 }
 
 .markdown-body .hljs-comment,
@@ -1222,10 +1310,13 @@ ul {
 	margin: 0.8em 0;
 	padding: 16px;
 	border-radius: 10px;
-	background: rgba(255, 255, 255, 0.6);
-	border: 1px solid rgba(0, 0, 0, 0.06);
+	background: var(--note-code-bg);
+	border: 1px solid var(--note-code-border);
 	text-align: center;
 	overflow-x: auto;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(15, 23, 42, 0.04);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
 }
 
 .markdown-body .mermaid svg {

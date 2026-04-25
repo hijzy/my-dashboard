@@ -459,6 +459,15 @@ function Workspace() {
 		return '';
 	}
 
+	const GROUP_ORDER: GroupName[] = [GROUP_IMPORTANT, GROUP_TASKS, GROUP_COMPLETED];
+
+	function isSubsequentGroupShifted(groupName: GroupName) {
+		if (!draggingTodoId || !draggingGroup || !dropBeforeTodoId) {
+			return false;
+		}
+		return GROUP_ORDER.indexOf(groupName) > GROUP_ORDER.indexOf(draggingGroup);
+	}
+
 	function separateTodos() {
 		const grouped = groupTodosBySection(todos);
 		return {
@@ -1178,64 +1187,90 @@ function Workspace() {
 						</div>
 						<div className="todo-scroll-area">
 							{importantTodos.length > 0 && (
-								<>
-									<h3 className="group-title">Important</h3>
+								<div className={`todo-group is-important${isSubsequentGroupShifted(GROUP_IMPORTANT) ? ' shift-down' : ''}`}>
+									<h3 className="group-title">
+										<span className="group-title-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<path d="m12 3.6 2.62 5.31 5.86.85-4.24 4.13 1 5.84L12 16.97l-5.24 2.76 1-5.84-4.24-4.13 5.86-.85L12 3.6Z" fill="currentColor" stroke="currentColor" strokeWidth="0.6" strokeLinejoin="round" />
+											</svg>
+										</span>
+										<span>Important</span>
+									</h3>
 									<ul
 										ref={element => {
 											listRefs.current.important = element;
 										}}
-										>
-											{importantTodos.map(todo => (
+									>
+										{importantTodos.map(todo => (
 											<ItemCard
 												key={todo.id}
 												todo={todo}
 												formatTimestamp={formatStoredDate}
 												handleCompleteTodo={() => handleCompleteTodo(todo)}
 												handleEditTodo={() => handleEditTodo(todo)}
-													handleSaveTodo={event => handleSaveTodo(todo, event)}
-													handleDeleteTodo={() => handleDeleteTodo(todo)}
-													handleMarkImportant={() => handleMarkImportant(todo)}
-													onPointerDragStart={event => beginPointerDrag(todo, GROUP_IMPORTANT, event)}
-													dropdownOpen={openDropdownTodoId === todo.id}
-													onDropdownOpenChange={open => setTodoDropdownOpen(todo.id, open)}
-													isDropTarget={dropBeforeTodoId === todo.id}
-													isDragging={draggingTodoId === todo.id}
+												handleSaveTodo={event => handleSaveTodo(todo, event)}
+												handleDeleteTodo={() => handleDeleteTodo(todo)}
+												handleMarkImportant={() => handleMarkImportant(todo)}
+												onPointerDragStart={event => beginPointerDrag(todo, GROUP_IMPORTANT, event)}
+												dropdownOpen={openDropdownTodoId === todo.id}
+												onDropdownOpenChange={open => setTodoDropdownOpen(todo.id, open)}
+												isDropTarget={dropBeforeTodoId === todo.id}
+												isDragging={draggingTodoId === todo.id}
 												shiftDirection={getShiftDirection(todo.id, importantTodos, GROUP_IMPORTANT)}
 												isRecentlyMoved={recentlyMovedTodoId === todo.id}
 											/>
 										))}
 									</ul>
-								</>
+								</div>
 							)}
-						{taskTodos.length > 0 && <h3 className="group-title">Tasks</h3>}
-						<ul
-							ref={element => {
-								listRefs.current.tasks = element;
-							}}
-						>
-								{taskTodos.map(todo => (
-									<ItemCard
-										key={todo.id}
-										todo={todo}
-										formatTimestamp={formatStoredDate}
-										handleCompleteTodo={() => handleCompleteTodo(todo)}
-										handleEditTodo={() => handleEditTodo(todo)}
-										handleSaveTodo={event => handleSaveTodo(todo, event)}
-										handleDeleteTodo={() => handleDeleteTodo(todo)}
-										handleMarkImportant={() => handleMarkImportant(todo)}
-										onPointerDragStart={event => beginPointerDrag(todo, GROUP_TASKS, event)}
-										dropdownOpen={openDropdownTodoId === todo.id}
-										onDropdownOpenChange={open => setTodoDropdownOpen(todo.id, open)}
-										isDropTarget={dropBeforeTodoId === todo.id}
-										isDragging={draggingTodoId === todo.id}
-										shiftDirection={getShiftDirection(todo.id, taskTodos, GROUP_TASKS)}
-										isRecentlyMoved={recentlyMovedTodoId === todo.id}
-									/>
-								))}
-							</ul>
+							{taskTodos.length > 0 && (
+								<div className={`todo-group${isSubsequentGroupShifted(GROUP_TASKS) ? ' shift-down' : ''}`}>
+									<h3 className="group-title">
+										<span className="group-title-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<path d="M5 7h14M5 12h14M5 17h9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+											</svg>
+										</span>
+										<span>Tasks</span>
+									</h3>
+									<ul
+										ref={element => {
+											listRefs.current.tasks = element;
+										}}
+									>
+										{taskTodos.map(todo => (
+											<ItemCard
+												key={todo.id}
+												todo={todo}
+												formatTimestamp={formatStoredDate}
+												handleCompleteTodo={() => handleCompleteTodo(todo)}
+												handleEditTodo={() => handleEditTodo(todo)}
+												handleSaveTodo={event => handleSaveTodo(todo, event)}
+												handleDeleteTodo={() => handleDeleteTodo(todo)}
+												handleMarkImportant={() => handleMarkImportant(todo)}
+												onPointerDragStart={event => beginPointerDrag(todo, GROUP_TASKS, event)}
+												dropdownOpen={openDropdownTodoId === todo.id}
+												onDropdownOpenChange={open => setTodoDropdownOpen(todo.id, open)}
+												isDropTarget={dropBeforeTodoId === todo.id}
+												isDragging={draggingTodoId === todo.id}
+												shiftDirection={getShiftDirection(todo.id, taskTodos, GROUP_TASKS)}
+												isRecentlyMoved={recentlyMovedTodoId === todo.id}
+											/>
+										))}
+									</ul>
+								</div>
+							)}
 							{completedTodos.length > 0 && (
-								<>
-									<h3 className="group-title">Completed</h3>
+								<div className={`todo-group is-completed${isSubsequentGroupShifted(GROUP_COMPLETED) ? ' shift-down' : ''}`}>
+									<h3 className="group-title">
+										<span className="group-title-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" fill="none" stroke="currentColor" strokeWidth="1.6" />
+												<path d="M8.4 12.3 11 14.9l4.7-4.9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+											</svg>
+										</span>
+										<span>Completed</span>
+									</h3>
 									<ul
 										ref={element => {
 											listRefs.current.completed = element;
@@ -1261,11 +1296,16 @@ function Workspace() {
 											/>
 										))}
 									</ul>
-								</>
+								</div>
 							)}
 							{importantTodos.length === 0 && taskTodos.length === 0 && completedTodos.length === 0 && (
-								<div className="done">
-									<p className="empty-state">No todo items yet. Add one to start your day.</p>
+								<div className="empty-state-wrap">
+									<svg className="empty-state-icon" viewBox="0 0 64 64" aria-hidden="true">
+										<rect x="12" y="14" width="40" height="42" rx="8" fill="none" stroke="currentColor" strokeWidth="1.8" />
+										<path d="M22 28h20M22 36h20M22 44h12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+										<path d="M26 8v8M38 8v8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+									</svg>
+									<p className="empty-state">No todo items yet.<br />Add one to start your day.</p>
 								</div>
 							)}
 						</div>
@@ -1286,7 +1326,7 @@ function Workspace() {
 									</span>
 								)}
 							</div>
-							<div className="note-switch" role="tablist" aria-label="Notes view">
+							<div className="note-switch" role="tablist" aria-label="Notes view" data-view={noteView}>
 								<button type="button" className={noteView === 'source' ? 'active' : ''} onClick={() => setNoteView('source')}>
 									<span>Source</span>
 								</button>
@@ -1317,6 +1357,7 @@ function Workspace() {
 								<h2 className="panel-title">Files</h2>
 							</div>
 							<div className="panel-head-actions">
+								<div className="panel-count">{stashedFiles.length}</div>
 								{stashedFiles.length > 0 && (
 									<button type="button" className="clear-button" onClick={handleClearFiles}>
 										Clear all
@@ -1393,7 +1434,16 @@ function Workspace() {
 						transform: `translate3d(${dragPreview.x - dragPreview.offsetX}px, ${dragPreview.y - dragPreview.offsetY}px, 0)`
 					}}
 				>
-					<div className={`todo-item drag-preview-card ${dragPreview.todo.completed ? 'completed' : ''}`}>
+					<div
+						className={[
+							'todo-item',
+							'drag-preview-card',
+							dragPreview.todo.completed ? 'completed' : '',
+							dragPreview.todo.important ? 'is-important' : ''
+						]
+							.filter(Boolean)
+							.join(' ')}
+					>
 						<div className="drag-handle drag-preview-handle" aria-hidden="true">
 							<svg viewBox="0 0 24 24">
 								<circle cx="8" cy="6" r="1.4" />
@@ -1413,10 +1463,31 @@ function Workspace() {
 							<p className="todo-text">{dragPreview.todo.text}</p>
 							{((dragPreview.todo.completed && dragPreview.todo.completedAt) || (!dragPreview.todo.completed && dragPreview.todo.createdAt)) && (
 								<p className={`todo-meta ${dragPreview.todo.completed ? 'is-completed' : ''}`}>
-									{dragPreview.todo.completed ? `✓ Completed at ${formatStoredDate(dragPreview.todo.completedAt)}` : `🕒 Created at ${formatStoredDate(dragPreview.todo.createdAt)}`}
+									<span className="todo-meta-icon" aria-hidden="true">
+										{dragPreview.todo.completed ? (
+											<svg viewBox="0 0 16 16">
+												<path d="M3.5 8.2 6.3 11l6.2-6.3" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+											</svg>
+										) : (
+											<svg viewBox="0 0 16 16">
+												<circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+												<path d="M8 4.7v3.6l2.3 1.4" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+											</svg>
+										)}
+									</span>
+									<span>{dragPreview.todo.completed ? `Completed at ${formatStoredDate(dragPreview.todo.completedAt)}` : `Created at ${formatStoredDate(dragPreview.todo.createdAt)}`}</span>
 								</p>
 							)}
 						</div>
+						{dragPreview.todo.important && (
+							<div className="right">
+								<div className="star-slot">
+									<span className="no-fill-icon-button" aria-hidden="true">
+										<span className="glyph-icon star-glyph is-active">★</span>
+									</span>
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
 			)}
