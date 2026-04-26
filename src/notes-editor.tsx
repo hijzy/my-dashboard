@@ -10,6 +10,21 @@ import { minimalSetup } from 'codemirror';
 type NotesEditorProps = {
 	value: string;
 	onChange: (value: string) => void;
+	onUploadImages?: (files: File[]) => Promise<NoteAttachment[]>;
+	onUploadError?: (message: string) => void;
+};
+
+type NoteAttachment = {
+	id: string;
+	name: string;
+	type: string;
+	size: number;
+	createdAt: string;
+};
+
+type EditorRange = {
+	from: number;
+	to: number;
 };
 
 function createNotesEditorTheme(noteCodeCursor: string, noteCodeSelectionBg: string, noteCodeSelectionFg: string) {
@@ -71,17 +86,93 @@ function createNotesEditorTheme(noteCodeCursor: string, noteCodeSelectionBg: str
 	});
 }
 
+function getImageExtension(type: string) {
+	if (type === 'image/jpeg') return 'jpg';
+	if (type === 'image/gif') return 'gif';
+	if (type === 'image/webp') return 'webp';
+	if (type === 'image/svg+xml') return 'svg';
+	return 'png';
+}
+
+function ensureImageFileName(file: File, index: number) {
+	if (file.name) {
+		return file;
+	}
+	const extension = getImageExtension(file.type);
+	return new File([file], `image-${Date.now()}-${index + 1}.${extension}`, { type: file.type, lastModified: file.lastModified });
+}
+
+function collectImageFiles(dataTransfer: DataTransfer | null) {
+	if (!dataTransfer) {
+		return [];
+	}
+	const itemFiles = Array.from(dataTransfer.items)
+		.filter(item => item.kind === 'file')
+		.map(item => item.getAsFile())
+		.filter((file): file is File => Boolean(file && file.type.startsWith('image/')));
+	const sourceFiles = itemFiles.length > 0
+		? itemFiles
+		: Array.from(dataTransfer.files).filter(file => file.type.startsWith('image/'));
+	return sourceFiles.map(ensureImageFileName);
+}
+
+function escapeMarkdownAlt(value: string) {
+	return value.replace(/[[\]\\]/g, '\\$&').replace(/\s+/g, ' ').trim() || 'image';
+}
+
+function buildImageMarkdown(attachments: NoteAttachment[]) {
+	return attachments
+		.map(attachment => `![${escapeMarkdownAlt(attachment.name)}](/api/note/attachments/${encodeURIComponent(attachment.id)})`)
+		.join('\n');
+}
+
+function insertMarkdownAtRange(view: import('@codemirror/view').EditorView, range: EditorRange, markdown: string) {
+	const doc = view.state.doc;
+	const from = Math.max(0, Math.min(range.from, doc.length));
+	const to = Math.max(from, Math.min(range.to, doc.length));
+	const before = from > 0 ? doc.sliceString(from - 1, from) : '\n';
+	const after = to < doc.length ? doc.sliceString(to, to + 1) : '\n';
+	const insert = `${before === '\n' ? '' : '\n'}${markdown}${after === '\n' ? '' : '\n'}`;
+	view.dispatch({
+		changes: { from, to, insert },
+		selection: { anchor: from + insert.length }
+	});
+	view.focus();
+}
+
 export function NotesEditor(props: NotesEditorProps) {
 	const editorHostRef = useRef<HTMLDivElement | null>(null);
 	const editorViewRef = useRef<EditorView | null>(null);
 	const onChangeRef = useRef(props.onChange);
+	const onUploadImagesRef = useRef(props.onUploadImages);
+	const onUploadErrorRef = useRef(props.onUploadError);
 
 	useEffect(() => {
 		onChangeRef.current = props.onChange;
 	}, [props.onChange]);
 
 	useEffect(() => {
+		onUploadImagesRef.current = props.onUploadImages;
+		onUploadErrorRef.current = props.onUploadError;
+	}, [props.onUploadImages, props.onUploadError]);
+
+	useEffect(() => {
 		let cancelled = false;
+		async function uploadImagesIntoEditor(view: import('@codemirror/view').EditorView, files: File[], range: EditorRange) {
+			const uploadImages = onUploadImagesRef.current;
+			if (!uploadImages) {
+				return;
+			}
+			try {
+				const attachments = await uploadImages(files);
+				if (!attachments.length || !view.dom.isConnected) {
+					return;
+				}
+				insertMarkdownAtRange(view, range, buildImageMarkdown(attachments));
+			} catch (error) {
+				onUploadErrorRef.current?.(error instanceof Error ? error.message : 'Image upload failed');
+			}
+		}
 		async function setupEditor() {
 			if (!editorHostRef.current) {
 				return;
@@ -114,6 +205,30 @@ export function NotesEditor(props: NotesEditorProps) {
 						keymap.of([indentWithTab, ...closeBracketsKeymap]),
 						markdownLanguage(),
 						theme,
+						EditorView.domEventHandlers({
+							paste(event: ClipboardEvent, view: import('@codemirror/view').EditorView) {
+								const files = collectImageFiles(event.clipboardData);
+								const uploadImages = onUploadImagesRef.current;
+								if (!files.length || !uploadImages) {
+									return false;
+								}
+								event.preventDefault();
+								const selection = view.state.selection.main;
+								void uploadImagesIntoEditor(view, files, { from: selection.from, to: selection.to });
+								return true;
+							},
+							drop(event: DragEvent, view: import('@codemirror/view').EditorView) {
+								const files = collectImageFiles(event.dataTransfer);
+								const uploadImages = onUploadImagesRef.current;
+								if (!files.length || !uploadImages) {
+									return false;
+								}
+								event.preventDefault();
+								const position = view.posAtCoords({ x: event.clientX, y: event.clientY }) ?? view.state.selection.main.from;
+								void uploadImagesIntoEditor(view, files, { from: position, to: position });
+								return true;
+							}
+						}),
 						EditorView.updateListener.of((update: import('@codemirror/view').ViewUpdate) => {
 							if (update.docChanged) {
 								onChangeRef.current(update.state.doc.toString());

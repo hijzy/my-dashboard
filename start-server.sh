@@ -54,6 +54,20 @@ if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
   sleep 1
 fi
 
+if command -v lsof >/dev/null 2>&1; then
+  while IFS= read -r EXISTING_PID; do
+    [ -z "$EXISTING_PID" ] && continue
+    COMMAND_LINE="$(ps -p "$EXISTING_PID" -o command= 2>/dev/null || true)"
+    if [[ "$COMMAND_LINE" == *"$ROOT_DIR"* && "$COMMAND_LINE" == *"backend/server.ts"* ]]; then
+      kill "$EXISTING_PID"
+      sleep 1
+    else
+      echo "Port ${PORT} is already in use by PID ${EXISTING_PID}: ${COMMAND_LINE}"
+      exit 1
+    fi
+  done < <(lsof -tiTCP:${PORT} -sTCP:LISTEN 2>/dev/null || true)
+fi
+
 npm run build
 
 mkdir -p "$RUNTIME_DIR"

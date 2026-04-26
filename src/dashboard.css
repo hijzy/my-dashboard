@@ -1014,6 +1014,21 @@ ul {
 	white-space: nowrap;
 }
 
+.note-attachment-status {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 10px;
+	height: 30px;
+	padding: 0 11px;
+	border-radius: 8px;
+	background: rgba(0, 0, 0, 0.04);
+	color: var(--text-soft);
+	font-size: 0.73rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+}
+
 .note-save-error-dots::after {
 	content: '.';
 	display: inline-block;

@@ -15,6 +15,14 @@ type StashedFile = {
 	uploadedAt: string;
 };
 
+type NoteAttachment = {
+	id: string;
+	name: string;
+	type: string;
+	size: number;
+	createdAt: string;
+};
+
 type FileIconEntry = {
 	text: string;
 	fg: string;
@@ -267,6 +275,7 @@ function Workspace() {
 	const [noteView, setNoteView] = useState<NoteView>('source');
 	const [noteUnsaved, setNoteUnsaved] = useState(false);
 	const [noteSaveError, setNoteSaveError] = useState(false);
+	const [noteAttachmentStatusText, setNoteAttachmentStatusText] = useState('');
 	const [todoSaveError, setTodoSaveError] = useState(false);
 	const [stashedFiles, setStashedFiles] = useState<StashedFile[]>(() => readFilesByKey(CLOUD_CACHE_FILES_KEY));
 	const [isUploadingFiles, setIsUploadingFiles] = useState(false);
@@ -285,6 +294,8 @@ function Workspace() {
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 	const uploadXhrRef = useRef<XMLHttpRequest | null>(null);
 	const uploadFailedRef = useRef(false);
+	const noteAttachmentStatusTimerRef = useRef<number | null>(null);
+	const noteAttachmentMaintenanceRanRef = useRef(false);
 	const listRefs = useRef<Record<GroupName, HTMLUListElement | null>>({
 		important: null,
 		tasks: null,
@@ -606,6 +617,49 @@ function Workspace() {
 		window.setTimeout(() => {
 			setUploadStatusText(previous => (previous === text ? '' : previous));
 		}, durationMs);
+	}
+
+	function showNoteAttachmentStatus(text: string, durationMs: number) {
+		if (noteAttachmentStatusTimerRef.current) {
+			window.clearTimeout(noteAttachmentStatusTimerRef.current);
+			noteAttachmentStatusTimerRef.current = null;
+		}
+		setNoteAttachmentStatusText(text);
+		if (durationMs > 0) {
+			noteAttachmentStatusTimerRef.current = window.setTimeout(() => {
+				noteAttachmentStatusTimerRef.current = null;
+				setNoteAttachmentStatusText(previous => (previous === text ? '' : previous));
+			}, durationMs);
+		}
+	}
+
+	async function uploadNoteImages(files: File[]) {
+		if (!files.length) {
+			return [];
+		}
+		const fileLabel = files.length === 1 ? files[0].name : `${files.length} images`;
+		showNoteAttachmentStatus(`Uploading ${fileLabel}`, 0);
+		try {
+			const formData = new FormData();
+			for (const file of files) {
+				formData.append('files', file, file.name);
+			}
+			const response = await fetch('/api/note/attachments', {
+				method: 'POST',
+				body: formData
+			});
+			if (!response.ok) {
+				const payload = (await response.json().catch(() => null)) as { message?: string } | null;
+				throw new Error(payload?.message || `Upload failed: ${fileLabel}`);
+			}
+			const attachments = (await response.json()) as NoteAttachment[];
+			showNoteAttachmentStatus(files.length === 1 ? 'Image inserted' : 'Images inserted', 1600);
+			return attachments;
+		} catch (error) {
+			const message = error instanceof Error ? error.message : `Upload failed: ${fileLabel}`;
+			showNoteAttachmentStatus(message, 3500);
+			throw new Error(message);
+		}
 	}
 
 	async function uploadFiles(files: FileList | File[]) {
@@ -988,8 +1042,19 @@ function Workspace() {
 			if (noteRetryTimerRef.current) {
 				window.clearTimeout(noteRetryTimerRef.current);
 			}
+			if (noteAttachmentStatusTimerRef.current) {
+				window.clearTimeout(noteAttachmentStatusTimerRef.current);
+			}
 		};
 	}, []);
+
+	useEffect(() => {
+		if (!isAuthorized || noteAttachmentMaintenanceRanRef.current) {
+			return;
+		}
+		noteAttachmentMaintenanceRanRef.current = true;
+		fetch('/api/note/attachments/maintenance', { method: 'POST' }).catch(() => undefined);
+	}, [isAuthorized]);
 
 	useEffect(() => {
 		if (!isAuthorized) {
@@ -1325,6 +1390,7 @@ function Workspace() {
 										Save failed, retrying<span className="note-save-error-dots" />
 									</span>
 								)}
+								{noteAttachmentStatusText && <span className="note-attachment-status">{noteAttachmentStatusText}</span>}
 							</div>
 							<div className="note-switch" role="tablist" aria-label="Notes view" data-view={noteView}>
 								<button type="button" className={noteView === 'source' ? 'active' : ''} onClick={() => setNoteView('source')}>
@@ -1338,7 +1404,7 @@ function Workspace() {
 						<Suspense fallback={null}>
 							{noteView === 'source' ? (
 								<div className="note-source-wrap">
-									<NotesEditor value={noteContent} onChange={setNoteContent} />
+									<NotesEditor value={noteContent} onChange={setNoteContent} onUploadImages={uploadNoteImages} onUploadError={message => showNoteAttachmentStatus(message, 3500)} />
 								</div>
 							) : (
 								<NotesPreview content={noteContent} />

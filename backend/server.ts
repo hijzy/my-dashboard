@@ -31,6 +31,19 @@ type FileMeta = {
 	storedName: string;
 };
 
+type UploadedFileMeta = {
+	id: string;
+	name: string;
+	type: string;
+	size: number;
+	createdAt: string;
+	storedName: string;
+};
+
+type NoteAttachmentMeta = UploadedFileMeta & {
+	orphanedAt: string | null;
+};
+
 type LoginAttemptState = {
 	failures: number;
 	firstFailureAt: number;
@@ -45,11 +58,14 @@ const authFile = join(dataDir, 'auth.json');
 const noteFile = join(dataDir, 'notes.md');
 const filesMetaFile = join(dataDir, 'files.json');
 const filesDir = join(dataDir, 'files');
+const noteAttachmentsMetaFile = join(dataDir, 'note-attachments.json');
+const noteAttachmentsDir = join(dataDir, 'note-attachments');
 const distDir = join(projectRoot, 'dist');
 const port = Number(process.env.TODO_SERVER_PORT || 8081);
 const sessionCookieName = 'todo_session';
 const sessionMaxAgeSeconds = 60 * 60 * 24 * 365 * 10;
 const maxUploadBytes = 512 * 1024 * 1024;
+const noteAttachmentGraceMs = 7 * 24 * 60 * 60 * 1000;
 const loginWindowMs = 10 * 60 * 1000;
 const maxLoginFailuresPerWindow = 5;
 const loginBlockDurationMs = 10 * 60 * 1000;
@@ -67,6 +83,7 @@ class HttpError extends Error {
 async function ensureStorage() {
 	await mkdir(dataDir, { recursive: true });
 	await mkdir(filesDir, { recursive: true });
+	await mkdir(noteAttachmentsDir, { recursive: true });
 	if (!existsSync(todosFile)) {
 		await writeFile(todosFile, '[]', 'utf-8');
 	}
@@ -78,6 +95,9 @@ async function ensureStorage() {
 	}
 	if (!existsSync(filesMetaFile)) {
 		await writeFile(filesMetaFile, '[]', 'utf-8');
+	}
+	if (!existsSync(noteAttachmentsMetaFile)) {
+		await writeFile(noteAttachmentsMetaFile, '[]', 'utf-8');
 	}
 }
 
@@ -122,6 +142,66 @@ async function readFilesMeta() {
 
 async function writeFilesMeta(files: FileMeta[]) {
 	await writeFile(filesMetaFile, JSON.stringify(files, null, 2), 'utf-8');
+}
+
+async function readNoteAttachmentsMeta() {
+	try {
+		const content = await readFile(noteAttachmentsMetaFile, 'utf-8');
+		const parsed = JSON.parse(content) as unknown;
+		if (!Array.isArray(parsed)) {
+			return [];
+		}
+		return parsed as NoteAttachmentMeta[];
+	} catch {
+		return [];
+	}
+}
+
+async function writeNoteAttachmentsMeta(attachments: NoteAttachmentMeta[]) {
+	await writeFile(noteAttachmentsMetaFile, JSON.stringify(attachments, null, 2), 'utf-8');
+}
+
+function extractNoteAttachmentIds(content: string) {
+	const ids = new Set<string>();
+	for (const match of content.matchAll(/\/api\/note\/attachments\/([A-Za-z0-9_-]+)/g)) {
+		ids.add(match[1]);
+	}
+	return ids;
+}
+
+async function maintainNoteAttachments() {
+	const [content, attachments] = await Promise.all([readNote(), readNoteAttachmentsMeta()]);
+	const referencedIds = extractNoteAttachmentIds(content);
+	const now = Date.now();
+	const nowIso = new Date(now).toISOString();
+	const nextAttachments: NoteAttachmentMeta[] = [];
+
+	for (const attachment of attachments) {
+		if (referencedIds.has(attachment.id)) {
+			nextAttachments.push({ ...attachment, orphanedAt: null });
+			continue;
+		}
+
+		if (!attachment.orphanedAt) {
+			nextAttachments.push({ ...attachment, orphanedAt: nowIso });
+			continue;
+		}
+
+		const orphanedAtMs = Date.parse(attachment.orphanedAt);
+		if (!Number.isFinite(orphanedAtMs)) {
+			nextAttachments.push({ ...attachment, orphanedAt: nowIso });
+			continue;
+		}
+
+		if (now - orphanedAtMs >= noteAttachmentGraceMs) {
+			await unlink(join(noteAttachmentsDir, attachment.storedName)).catch(() => undefined);
+			continue;
+		}
+
+		nextAttachments.push(attachment);
+	}
+
+	await writeNoteAttachmentsMeta(nextAttachments);
 }
 
 function sanitizeFileName(name: string) {
@@ -335,15 +415,15 @@ async function parseRequestBody(request: import('node:http').IncomingMessage) {
 	return raw ? (JSON.parse(raw) as unknown) : [];
 }
 
-async function parseMultipartFiles(request: import('node:http').IncomingMessage) {
-	return new Promise<FileMeta[]>((resolve, reject) => {
+async function parseMultipartFiles(request: import('node:http').IncomingMessage, destinationDir: string) {
+	return new Promise<UploadedFileMeta[]>((resolve, reject) => {
 		const contentType = request.headers['content-type'] || '';
 		if (!contentType.includes('multipart/form-data')) {
 			reject(new HttpError('Expected multipart/form-data', 400));
 			return;
 		}
 
-		const uploadTasks: Promise<FileMeta | null>[] = [];
+		const uploadTasks: Promise<UploadedFileMeta | null>[] = [];
 		const createdPaths: string[] = [];
 		let didFail = false;
 
@@ -366,12 +446,12 @@ async function parseMultipartFiles(request: import('node:http').IncomingMessage)
 		});
 
 		busboy.on('file', (_fieldName, fileStream, info) => {
-		const safeName = sanitizeFileName(decodeMultipartFileName(info.filename || 'file'));
-		const id = randomBytes(12).toString('hex');
+			const safeName = sanitizeFileName(decodeMultipartFileName(info.filename || 'file'));
+			const id = randomBytes(12).toString('hex');
 			const storedName = `${id}-${safeName}`;
-			const filePath = join(filesDir, storedName);
+			const filePath = join(destinationDir, storedName);
 			const writeStream = createWriteStream(filePath);
-			const uploadedAt = new Date().toISOString();
+			const createdAt = new Date().toISOString();
 			let size = 0;
 			let limitError: HttpError | null = null;
 
@@ -402,7 +482,7 @@ async function parseMultipartFiles(request: import('node:http').IncomingMessage)
 						name: safeName,
 						type: info.mimeType || 'application/octet-stream',
 						size,
-						uploadedAt,
+						createdAt,
 						storedName
 					};
 				} catch (error) {
@@ -426,7 +506,7 @@ async function parseMultipartFiles(request: import('node:http').IncomingMessage)
 					if (didFail) {
 						return;
 					}
-					const uploads = results.filter((file): file is FileMeta => file !== null);
+					const uploads = results.filter((file): file is UploadedFileMeta => file !== null);
 					if (!uploads.length) {
 						fail(new HttpError('No files uploaded', 400));
 						return;
@@ -596,6 +676,75 @@ const server = createServer(async (request, response) => {
 		}
 	}
 
+	if (url.pathname === '/api/note/attachments/maintenance' && request.method === 'POST') {
+		try {
+			await maintainNoteAttachments();
+			sendJson(response, 200, { success: true });
+			return;
+		} catch {
+			sendJson(response, 500, { message: 'Attachment maintenance failed' });
+			return;
+		}
+	}
+
+	if (url.pathname === '/api/note/attachments' && request.method === 'POST') {
+		try {
+			const uploadedFiles = await parseMultipartFiles(request, noteAttachmentsDir);
+			const hasNonImage = uploadedFiles.some(file => !file.type.startsWith('image/'));
+			if (hasNonImage) {
+				await Promise.all(uploadedFiles.map(file => unlink(join(noteAttachmentsDir, file.storedName)).catch(() => undefined)));
+				sendJson(response, 400, { message: 'Only image uploads are supported for notes' });
+				return;
+			}
+			const attachments = uploadedFiles.map(file => ({
+				...file,
+				orphanedAt: null
+			}));
+			const existingAttachments = await readNoteAttachmentsMeta();
+			await writeNoteAttachmentsMeta([...attachments, ...existingAttachments]);
+			sendJson(
+				response,
+				200,
+				attachments.map(({ storedName, orphanedAt, ...rest }) => rest)
+			);
+			return;
+		} catch (error) {
+			const statusCode = error instanceof HttpError ? error.statusCode : 400;
+			const message = error instanceof Error ? error.message : 'Invalid upload payload';
+			sendJson(response, statusCode, { message });
+			return;
+		}
+	}
+
+	const noteAttachmentMatch = url.pathname.match(/^\/api\/note\/attachments\/([^/]+)$/);
+	if (noteAttachmentMatch && request.method === 'GET') {
+		const id = decodeURIComponent(noteAttachmentMatch[1]);
+		const attachments = await readNoteAttachmentsMeta();
+		const target = attachments.find(attachment => attachment.id === id);
+		if (!target) {
+			sendJson(response, 404, { message: 'Attachment not found' });
+			return;
+		}
+		try {
+			const filePath = join(noteAttachmentsDir, target.storedName);
+			const fileStat = await stat(filePath);
+			response.writeHead(200, {
+				'Content-Type': target.type || 'application/octet-stream',
+				'Content-Length': String(fileStat.size),
+				'Content-Disposition': `inline; filename*=UTF-8''${encodeURIComponent(target.name)}`
+			});
+			const stream = createReadStream(filePath);
+			stream.on('error', () => {
+				response.destroy();
+			});
+			stream.pipe(response);
+			return;
+		} catch {
+			sendJson(response, 404, { message: 'Attachment content missing' });
+			return;
+		}
+	}
+
 	if (url.pathname === '/api/files' && request.method === 'GET') {
 		const files = await readFilesMeta();
 		sendJson(
@@ -608,7 +757,10 @@ const server = createServer(async (request, response) => {
 
 	if (url.pathname === '/api/files' && request.method === 'POST') {
 		try {
-			const uploadedFiles = await parseMultipartFiles(request);
+			const uploadedFiles = (await parseMultipartFiles(request, filesDir)).map(({ createdAt, ...rest }) => ({
+				...rest,
+				uploadedAt: createdAt
+			}));
 			const files = await readFilesMeta();
 			await writeFilesMeta([...uploadedFiles, ...files]);
 			sendJson(
