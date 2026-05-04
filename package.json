@@ -28,7 +28,11 @@
     "markdown-it-texmath": "^1.0.0",
     "mermaid": "^11.14.0"
   },
+  "overrides": {
+    "uuid": "^14.0.0"
+  },
   "devDependencies": {
+    "@types/busboy": "^1.5.4",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.15.0",
     "@types/react": "^18.3.18",
